@@ -1,7 +1,7 @@
 /*
  * Tissuelock site — text edit mode.
  * Visit the site with ?edit at the end of the address (e.g. tissuelock.com/?edit),
- * click any text to change it, then press Publish. Publishing saves the new text
+ * pick a page from the dropdown, click any text to change it, then press Publish. Publishing saves the new text
  * straight into index.html on GitHub; the live site updates in a minute or two.
  * Does nothing for normal visitors.
  */
@@ -14,8 +14,10 @@
   var FILE = 'index.html';
   var TOKEN_KEY = 'tl-edit-token';
 
-  var originals = {};   // id -> text as first loaded
-  var bar, countEl, statusEl;
+  var originals = {};   // id -> text as currently published
+  var pending = {};     // id -> edited text not yet published (survives page switches)
+  var bar, statusEl, pageSel;
+  var navigating = false;
 
   // ---------- helpers ----------
   function textOf(el) {
@@ -90,6 +92,7 @@
       '#tl-edit-bar button.primary{background:#2A7FDB;border-color:#2A7FDB;color:#fff}' +
       '#tl-edit-bar button:disabled{opacity:.45;cursor:default}' +
       '#tl-edit-status{color:#9FB4C6;font-weight:400}' +
+      '#tl-edit-page{font:inherit;color:inherit;background:#071624;border:1px solid rgba(233,236,239,.25);border-radius:9px;padding:7px 10px}' +
       '#tl-edit-modal{position:fixed;inset:0;z-index:2147483001;background:rgba(5,15,25,.72);display:flex;align-items:center;justify-content:center;padding:16px}' +
       '#tl-edit-modal .box{width:min(520px,100%);background:#0B1B2C;color:#E9ECEF;border:1px solid rgba(127,196,232,.35);border-radius:16px;padding:24px;font:400 15px/1.55 "Schibsted Grotesk",system-ui,sans-serif}' +
       '#tl-edit-modal h3{margin:0 0 10px;font-size:20px;font-weight:600}' +
@@ -106,13 +109,27 @@
     bar = document.createElement('div');
     bar.id = 'tl-edit-bar';
     bar.innerHTML =
-      '<span>Edit mode — click any text</span>' +
+      '<span>Edit mode</span>' +
+      '<select id="tl-edit-page" aria-label="Page"></select>' +
       '<span id="tl-edit-status"></span>' +
       '<button type="button" data-act="discard">Discard</button>' +
       '<button type="button" data-act="publish" class="primary">Publish</button>' +
       '<button type="button" data-act="exit">Exit</button>';
     document.body.appendChild(bar);
     statusEl = bar.querySelector('#tl-edit-status');
+    pageSel = bar.querySelector('#tl-edit-page');
+    menuLinks().forEach(function (a, i) {
+      var o = document.createElement('option');
+      o.value = i; o.textContent = (a.textContent || '').replace(/^\s*\d+\s*/, '').trim() || ('Page ' + (i + 1));
+      pageSel.appendChild(o);
+    });
+    pageSel.addEventListener('change', function () {
+      var a = menuLinks()[+pageSel.value];
+      if (!a) return;
+      navigating = true;
+      try { a.click(); } finally { navigating = false; }
+      window.scrollTo(0, 0);
+    });
     bar.addEventListener('click', function (e) {
       var act = e.target.getAttribute && e.target.getAttribute('data-act');
       if (act === 'discard') discard();
@@ -125,11 +142,18 @@
     refresh();
   }
 
-  function changedIds() {
-    return Object.keys(originals).filter(function (id) {
-      var el = document.querySelector('[data-edit="' + id + '"]');
-      return el && norm(textOf(el)) !== originals[id];
+  function menuLinks() {
+    return Array.prototype.slice.call(document.querySelectorAll('[data-menu-panel] a')).filter(function (a) {
+      return !/^mailto:/.test(a.getAttribute('href') || '');
     });
+  }
+
+  function changedIds() {
+    return Object.keys(pending).filter(function (id) { return pending[id] !== originals[id]; });
+  }
+
+  function setText(el, text) {
+    el.innerHTML = esc(text).replace(/\n/g, '<br>');
   }
 
   function refresh() {
@@ -149,9 +173,10 @@
   }
 
   function discard() {
-    changedIds().forEach(function (id) {
+    Object.keys(pending).forEach(function (id) {
+      delete pending[id];
       var el = document.querySelector('[data-edit="' + id + '"]');
-      el.innerHTML = esc(originals[id]).replace(/\n/g, '<br>');
+      if (el) setText(el, originals[id]);
     });
     refresh();
   }
@@ -226,8 +251,7 @@
         var file = await r.json();
         var src = b64decode(file.content);
         ids.forEach(function (id) {
-          var el = document.querySelector('[data-edit="' + id + '"]');
-          src = replaceInSource(src, id, toHtml(norm(textOf(el)), originals[id]));
+          src = replaceInSource(src, id, toHtml(pending[id], originals[id]));
         });
         var p = await api(token, 'PUT', {
           message: 'Edit website text (' + ids.length + ' change' + (ids.length > 1 ? 's' : '') + ')',
@@ -242,8 +266,8 @@
         break;
       }
       ids.forEach(function (id) {
-        var el = document.querySelector('[data-edit="' + id + '"]');
-        originals[id] = norm(textOf(el));
+        originals[id] = pending[id];
+        delete pending[id];
       });
       refresh();
       say('✓ Published. Live in 1–2 minutes (refresh to see it).', true);
@@ -260,6 +284,9 @@
     if (el.hasAttribute('contenteditable')) return;
     var id = el.getAttribute('data-edit');
     if (!(id in originals)) originals[id] = norm(textOf(el));
+    // Pages re-render from the original file when you switch; put back edited/published text.
+    var want = (id in pending) ? pending[id] : originals[id];
+    if (norm(textOf(el)) !== want) setText(el, want);
     try { el.contentEditable = 'plaintext-only'; } catch (e) { el.contentEditable = 'true'; }
     if (el.contentEditable !== 'plaintext-only') el.contentEditable = 'true';
     el.spellcheck = true;
@@ -278,7 +305,13 @@
     setInterval(sweep, 700);
 
     document.addEventListener('input', function (e) {
-      if (e.target.closest && e.target.closest('[data-edit]')) { delete statusEl.dataset.sticky; refresh(); }
+      var el = e.target.closest && e.target.closest('[data-edit]');
+      if (el) {
+        var id = el.getAttribute('data-edit');
+        var t = norm(textOf(el));
+        if (t === originals[id]) delete pending[id]; else pending[id] = t;
+        delete statusEl.dataset.sticky; refresh();
+      }
     }, true);
 
     // Enter finishes editing; Shift+Enter adds a line break.
@@ -301,6 +334,7 @@
     // Links and buttons don't navigate while editing (the menu button still works).
     document.addEventListener('click', function (e) {
       if (!e.target.closest) return;
+      if (navigating) return;
       if (e.target.closest('#tl-edit-bar,#tl-edit-modal,[data-burger-btn],[aria-label="Close menu"]')) return;
       var link = e.target.closest('a,button');
       if (link) { e.preventDefault(); e.stopPropagation(); }
