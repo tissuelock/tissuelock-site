@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="./support.js"></script>
+<script src="./edit.js" defer></script>
 </head>
 <body>
 <x-dc>
@@ -60,7 +61,7 @@
 <header data-header style="position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;gap:clamp(18px,3vw,44px);padding:17px clamp(18px,4vw,54px);background:rgba(7,22,36,.84);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(233,236,239,.1)">
   <a href="#" onClick="{{ goHome }}" style="display:flex;align-items:center;gap:11px;flex:0 0 auto;margin-right:auto;color:#FFFFFF">
     <img src="assets/logo-mark-dark-clean.png" alt="" style="height:27px;width:auto;display:block">
-    <span style="font-size:19px;font-weight:800;line-height:1;letter-spacing:-.035em">Tissuelock</span>
+    <span data-edit="t1" style="font-size:19px;font-weight:800;line-height:1;letter-spacing:-.035em">Tissuelock</span>
   </a>
 
   <button data-burger-btn onClick="{{ toggleMenu }}" aria-label="Menu" style="display:flex;align-items:center;justify-content:center;width:48px;height:40px;flex:0 0 auto;padding:0;border:1px solid rgba(233,236,239,.22);background:transparent;cursor:pointer;transition:border-color .4s,background .4s,transform .45s cubic-bezier(.34,1.4,.5,1)" style-hover="border-color:#7FC4E8;background:rgba(127,196,232,.07)" style-active="transform:scale(.92)">
@@ -76,44 +77,44 @@
   <div style="display:flex;align-items:center;justify-content:space-between;gap:20px;height:40px">
     <span style="display:flex;align-items:center;gap:10px;color:#0A1A2B">
       <img src="assets/logo-mark-t-clean.png" alt="" style="height:25px;width:auto;display:block">
-      <span style="font-size:18px;font-weight:800;line-height:1;letter-spacing:-.035em">Tissuelock</span>
+      <span data-edit="t2" style="font-size:18px;font-weight:800;line-height:1;letter-spacing:-.035em">Tissuelock</span>
     </span>
-    <button onClick="{{ toggleMenu }}" aria-label="Close menu" style="font-size:15px;font-weight:500;letter-spacing:-.01em;color:#0A1A2B;background:transparent;border:0;border-bottom:1px solid rgba(10,26,43,.3);padding:0 0 4px;cursor:pointer;transition:border-color .35s,color .35s" style-hover="color:#1F5A86;border-color:#1F5A86">Close</button>
+    <button data-edit="t3" onClick="{{ toggleMenu }}" aria-label="Close menu" style="font-size:15px;font-weight:500;letter-spacing:-.01em;color:#0A1A2B;background:transparent;border:0;border-bottom:1px solid rgba(10,26,43,.3);padding:0 0 4px;cursor:pointer;transition:border-color .35s,color .35s" style-hover="color:#1F5A86;border-color:#1F5A86">Close</button>
   </div>
 
   <div style="flex:1;display:flex;align-items:center;padding:clamp(20px,5vh,70px) 0">
     <div style="display:grid;gap:clamp(16px,3.4vw,52px);grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));width:100%;max-width:1400px;margin:0 auto">
       <div style="display:flex;flex-direction:column;gap:clamp(12px,2.4vh,30px)">
         <a href="#" onClick="{{ goHome }}" style="display:flex;align-items:baseline;gap:clamp(14px,1.8vw,28px);color:#0A1A2B;transition:color .4s,transform .55s cubic-bezier(.16,.84,.3,1)" style-hover="color:#1F5A86;transform:translateX(10px)">
-          <span style="font-size:13px;font-weight:600;line-height:1;color:#8496A4;flex:0 0 auto;width:22px;text-align:left">01</span>
-          <span style="font-size:clamp(30px,4.6vw,62px);font-weight:500;line-height:1.02;letter-spacing:-.045em">Home</span>
+          <span data-edit="t4" style="font-size:13px;font-weight:600;line-height:1;color:#8496A4;flex:0 0 auto;width:22px;text-align:left">01</span>
+          <span data-edit="t5" style="font-size:clamp(30px,4.6vw,62px);font-weight:500;line-height:1.02;letter-spacing:-.045em">Home</span>
         </a>
         <a href="#" onClick="{{ goTech }}" style="display:flex;align-items:baseline;gap:clamp(14px,1.8vw,28px);color:#0A1A2B;transition:color .4s,transform .55s cubic-bezier(.16,.84,.3,1)" style-hover="color:#1F5A86;transform:translateX(10px)">
-          <span style="font-size:13px;font-weight:600;line-height:1;color:#8496A4;flex:0 0 auto;width:22px;text-align:left">02</span>
-          <span style="font-size:clamp(30px,4.6vw,62px);font-weight:500;line-height:1.02;letter-spacing:-.045em">Technology</span>
+          <span data-edit="t6" style="font-size:13px;font-weight:600;line-height:1;color:#8496A4;flex:0 0 auto;width:22px;text-align:left">02</span>
+          <span data-edit="t7" style="font-size:clamp(30px,4.6vw,62px);font-weight:500;line-height:1.02;letter-spacing:-.045em">Technology</span>
         </a>
         <a href="#" onClick="{{ goTeam }}" style="display:flex;align-items:baseline;gap:clamp(14px,1.8vw,28px);color:#0A1A2B;transition:color .4s,transform .55s cubic-bezier(.16,.84,.3,1)" style-hover="color:#1F5A86;transform:translateX(10px)">
-          <span style="font-size:13px;font-weight:600;line-height:1;color:#8496A4;flex:0 0 auto;width:22px;text-align:left">03</span>
-          <span style="font-size:clamp(30px,4.6vw,62px);font-weight:500;line-height:1.02;letter-spacing:-.045em">Team</span>
+          <span data-edit="t8" style="font-size:13px;font-weight:600;line-height:1;color:#8496A4;flex:0 0 auto;width:22px;text-align:left">03</span>
+          <span data-edit="t9" style="font-size:clamp(30px,4.6vw,62px);font-weight:500;line-height:1.02;letter-spacing:-.045em">Team</span>
         </a>
         <a href="#" onClick="{{ goAbout }}" style="display:flex;align-items:baseline;gap:clamp(14px,1.8vw,28px);color:#0A1A2B;transition:color .4s,transform .55s cubic-bezier(.16,.84,.3,1)" style-hover="color:#1F5A86;transform:translateX(10px)">
-          <span style="font-size:13px;font-weight:600;line-height:1;color:#8496A4;flex:0 0 auto;width:22px;text-align:left">04</span>
-          <span style="font-size:clamp(30px,4.6vw,62px);font-weight:500;line-height:1.02;letter-spacing:-.045em">About</span>
+          <span data-edit="t10" style="font-size:13px;font-weight:600;line-height:1;color:#8496A4;flex:0 0 auto;width:22px;text-align:left">04</span>
+          <span data-edit="t11" style="font-size:clamp(30px,4.6vw,62px);font-weight:500;line-height:1.02;letter-spacing:-.045em">About</span>
         </a>
         <a href="#" onClick="{{ goInvestors }}" style="display:flex;align-items:baseline;gap:clamp(14px,1.8vw,28px);color:#0A1A2B;transition:color .4s,transform .55s cubic-bezier(.16,.84,.3,1)" style-hover="color:#1F5A86;transform:translateX(10px)">
-          <span style="font-size:13px;font-weight:600;line-height:1;color:#8496A4;flex:0 0 auto;width:22px;text-align:left">05</span>
-          <span style="font-size:clamp(30px,4.6vw,62px);font-weight:500;line-height:1.02;letter-spacing:-.045em">Investors</span>
+          <span data-edit="t12" style="font-size:13px;font-weight:600;line-height:1;color:#8496A4;flex:0 0 auto;width:22px;text-align:left">05</span>
+          <span data-edit="t13" style="font-size:clamp(30px,4.6vw,62px);font-weight:500;line-height:1.02;letter-spacing:-.045em">Investors</span>
         </a>
       </div>
 
       <div style="display:flex;flex-direction:column;justify-content:flex-end;gap:26px;border-left:1px solid rgba(10,26,43,.15);padding-left:clamp(16px,2.6vw,40px)">
         <div style="display:flex;flex-direction:column;gap:8px">
-          <span style="font-size:13px;font-weight:600;line-height:1;color:#1F5A86">Laboratory</span>
-          <span style="font-size:15px;font-weight:400;line-height:1.6;color:#0A1A2B">4340 Duncan Avenue, Suite 207<br>St. Louis, Missouri 63110</span>
+          <span data-edit="t14" style="font-size:13px;font-weight:600;line-height:1;color:#1F5A86">Laboratory</span>
+          <span data-edit="t15" style="font-size:15px;font-weight:400;line-height:1.6;color:#0A1A2B">4340 Duncan Avenue, Suite 207<br>St. Louis, Missouri 63110</span>
         </div>
         <div style="display:flex;flex-direction:column;gap:8px">
-          <span style="font-size:13px;font-weight:600;line-height:1;color:#1F5A86">Inquiries</span>
-          <a href="mailto:connect@tissuelock.com" style="font-size:15px;font-weight:400;line-height:1.5;color:#1F5A86;transition:color .35s" style-hover="color:#0A1A2B">connect@tissuelock.com</a>
+          <span data-edit="t16" style="font-size:13px;font-weight:600;line-height:1;color:#1F5A86">Inquiries</span>
+          <a data-edit="t17" href="mailto:connect@tissuelock.com" style="font-size:15px;font-weight:400;line-height:1.5;color:#1F5A86;transition:color .35s" style-hover="color:#0A1A2B">connect@tissuelock.com</a>
         </div>
       </div>
     </div>
@@ -130,20 +131,20 @@
 
     <div style="position:relative;width:100%;max-width:1500px;margin:0 auto;display:grid;gap:clamp(26px,4vw,72px);grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));align-items:flex-end">
       <h1 style="margin:0;font-size:clamp(44px,8vw,132px);font-weight:500;line-height:.92;letter-spacing:-.052em;color:#FFFFFF;text-wrap:balance">
-        <span data-word>Bringing</span> <span data-word>tissue</span> <span data-word style="color:#7FC4E8">together.</span>
+        <span data-edit="t18" data-word>Bringing</span> <span data-edit="t19" data-word>tissue</span> <span data-edit="t20" data-word style="color:#7FC4E8">together.</span>
       </h1>
       <div style="display:flex;flex-direction:column;gap:24px;max-width:520px;padding-bottom:clamp(6px,1.4vh,18px)">
-        <p data-word style="margin:0;font-size:clamp(15px,1.25vw,19px);font-weight:400;line-height:1.62;color:#C3D2DE;text-wrap:pretty">Tissuelock is developing a resorbable fixation platform designed to bond tissue planes at the moment of surgical closure — so healing depends less on drains, quilting sutures, and time.</p>
-        <a data-word href="#technology" style="font-size:15px;font-weight:500;letter-spacing:-.01em;color:#7FC4E8;align-self:flex-start;border-bottom:1px solid rgba(127,196,232,.42);padding-bottom:5px;transition:color .35s,border-color .35s" style-hover="color:#FFFFFF;border-color:#FFFFFF">Read the technology</a>
+        <p data-edit="t21" data-word style="margin:0;font-size:clamp(15px,1.25vw,19px);font-weight:400;line-height:1.62;color:#C3D2DE;text-wrap:pretty">Tissuelock is developing a resorbable fixation platform designed to bond tissue planes at the moment of surgical closure — so healing depends less on drains, quilting sutures, and time.</p>
+        <a data-edit="t22" data-word href="#technology" style="font-size:15px;font-weight:500;letter-spacing:-.01em;color:#7FC4E8;align-self:flex-start;border-bottom:1px solid rgba(127,196,232,.42);padding-bottom:5px;transition:color .35s,border-color .35s" style-hover="color:#FFFFFF;border-color:#FFFFFF">Read the technology</a>
       </div>
     </div>
 
     <div style="position:relative;width:100%;max-width:1500px;margin:0 auto;display:flex;align-items:flex-end;justify-content:space-between;gap:18px">
       <div data-word style="display:flex;flex-direction:column;align-items:center;gap:8px">
-        <span style="font-size:13px;font-weight:500;color:#8EA6BA">Scroll</span>
-        <span style="display:block;font-size:14px;line-height:1;color:#7FC4E8;animation:tlcue 2.8s ease-in-out infinite">&#8595;</span>
+        <span data-edit="t23" style="font-size:13px;font-weight:500;color:#8EA6BA">Scroll</span>
+        <span data-edit="t24" style="display:block;font-size:14px;line-height:1;color:#7FC4E8;animation:tlcue 2.8s ease-in-out infinite">&#8595;</span>
       </div>
-      <span data-word style="font-size:clamp(13px,1.2vw,16px);font-weight:400;line-height:1.5;color:#8EA6BA;text-align:right;max-width:330px">Pre-clinical stage. Investigational device — not available for sale.</span>
+      <span data-edit="t25" data-word style="font-size:clamp(13px,1.2vw,16px);font-weight:400;line-height:1.5;color:#8EA6BA;text-align:right;max-width:330px">Pre-clinical stage. Investigational device — not available for sale.</span>
     </div>
   </section>
 
@@ -155,14 +156,14 @@
     </svg>
     <div style="position:relative;max-width:1500px;margin:0 auto;display:grid;gap:clamp(26px,4vw,64px);grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))">
       <div data-reveal style="display:flex;flex-direction:column;gap:16px">
-        <span style="font-size:13px;font-weight:600;line-height:1;color:#7FC4E8">Tissuelock in brief</span>
-        <span style="font-size:clamp(17px,1.6vw,22px);font-weight:400;line-height:1.42;color:#8EA6BA;max-width:270px">The fixation layer of soft-tissue surgery.</span>
+        <span data-edit="t26" style="font-size:13px;font-weight:600;line-height:1;color:#7FC4E8">Tissuelock in brief</span>
+        <span data-edit="t27" style="font-size:clamp(17px,1.6vw,22px);font-weight:400;line-height:1.42;color:#8EA6BA;max-width:270px">The fixation layer of soft-tissue surgery.</span>
       </div>
       <div data-reveal style="grid-column:span 2;min-width:0">
-        <h2 style="margin:0 0 26px;font-size:clamp(27px,3.5vw,54px);font-weight:500;line-height:1.1;letter-spacing:-.04em;color:#FFFFFF;text-wrap:pretty">Large-flap surgery leaves a plane of dead space between skin and fascia. We are building a material that closes it.</h2>
+        <h2 data-edit="t28" style="margin:0 0 26px;font-size:clamp(27px,3.5vw,54px);font-weight:500;line-height:1.1;letter-spacing:-.04em;color:#FFFFFF;text-wrap:pretty">Large-flap surgery leaves a plane of dead space between skin and fascia. We are building a material that closes it.</h2>
         <div style="display:grid;gap:clamp(18px,2.6vw,40px);grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr))">
-          <p style="margin:0;font-size:clamp(14px,1.05vw,17px);font-weight:400;line-height:1.68;color:#A8BDCE;text-wrap:pretty">Today that space is managed with closed-suction drains and progressive tension sutures. Both work. Both cost operative time, patient comfort, and weeks of follow-up.</p>
-          <p style="margin:0;font-size:clamp(14px,1.05vw,17px);font-weight:400;line-height:1.68;color:#A8BDCE;text-wrap:pretty">Tissuelock approaches the same problem as a materials problem: a resorbable layer that adheres across the whole tissue interface rather than fixing it point by point.</p>
+          <p data-edit="t29" style="margin:0;font-size:clamp(14px,1.05vw,17px);font-weight:400;line-height:1.68;color:#A8BDCE;text-wrap:pretty">Today that space is managed with closed-suction drains and progressive tension sutures. Both work. Both cost operative time, patient comfort, and weeks of follow-up.</p>
+          <p data-edit="t30" style="margin:0;font-size:clamp(14px,1.05vw,17px);font-weight:400;line-height:1.68;color:#A8BDCE;text-wrap:pretty">Tissuelock approaches the same problem as a materials problem: a resorbable layer that adheres across the whole tissue interface rather than fixing it point by point.</p>
         </div>
       </div>
     </div>
@@ -171,10 +172,10 @@
   <section id="product" style="position:relative;padding:clamp(80px,11vw,170px) clamp(18px,4vw,54px);background:#0A1A2B;overflow:hidden">
     <div style="position:relative;max-width:1500px;margin:0 auto;display:grid;gap:clamp(34px,5vw,80px);grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));align-items:center">
       <div data-reveal style="display:flex;flex-direction:column;gap:22px;min-width:0">
-        <span style="font-size:13px;font-weight:600;line-height:1;color:#7FC4E8">The product</span>
-        <h2 style="margin:0;font-size:clamp(28px,3.8vw,58px);font-weight:500;line-height:1.08;letter-spacing:-.04em;color:#FFFFFF;text-wrap:balance">Three resorbable layers, applied as one.</h2>
-        <p style="margin:0;font-size:clamp(14px,1.05vw,17px);font-weight:400;line-height:1.68;color:#A8BDCE;max-width:500px;text-wrap:pretty">The construct is built from stacked, offset layers — an adhesive face to the fascia, a load-bearing core, and a second adhesive face to the flap. Handled like tape in the operative field.</p>
-        <p style="margin:0;font-size:clamp(13px,1vw,15px);font-weight:400;line-height:1.6;color:#8EA6BA;max-width:500px">Schematic representation. Geometry and layer count are under development.</p>
+        <span data-edit="t31" style="font-size:13px;font-weight:600;line-height:1;color:#7FC4E8">The product</span>
+        <h2 data-edit="t32" style="margin:0;font-size:clamp(28px,3.8vw,58px);font-weight:500;line-height:1.08;letter-spacing:-.04em;color:#FFFFFF;text-wrap:balance">Three resorbable layers, applied as one.</h2>
+        <p data-edit="t33" style="margin:0;font-size:clamp(14px,1.05vw,17px);font-weight:400;line-height:1.68;color:#A8BDCE;max-width:500px;text-wrap:pretty">The construct is built from stacked, offset layers — an adhesive face to the fascia, a load-bearing core, and a second adhesive face to the flap. Handled like tape in the operative field.</p>
+        <p data-edit="t34" style="margin:0;font-size:clamp(13px,1vw,15px);font-weight:400;line-height:1.6;color:#8EA6BA;max-width:500px">Schematic representation. Geometry and layer count are under development.</p>
       </div>
 
       <div style="position:relative;min-width:0;display:flex;align-items:center;justify-content:center;padding:clamp(6px,2vw,28px)">
@@ -197,27 +198,27 @@
     <div style="position:relative;max-width:1500px;margin:0 auto">
       <div data-reveal style="display:flex;align-items:flex-end;justify-content:space-between;gap:26px;flex-wrap:wrap;margin-bottom:clamp(40px,6vw,86px)">
         <div style="display:flex;flex-direction:column;gap:16px;max-width:900px">
-          <span style="font-size:13px;font-weight:600;line-height:1;color:#7FC4E8">The technology</span>
-          <h2 style="margin:0;font-size:clamp(30px,4.6vw,76px);font-weight:500;line-height:1.02;letter-spacing:-.045em;color:#FFFFFF;text-wrap:balance">Three things the material has to do</h2>
+          <span data-edit="t35" style="font-size:13px;font-weight:600;line-height:1;color:#7FC4E8">The technology</span>
+          <h2 data-edit="t36" style="margin:0;font-size:clamp(30px,4.6vw,76px);font-weight:500;line-height:1.02;letter-spacing:-.045em;color:#FFFFFF;text-wrap:balance">Three things the material has to do</h2>
         </div>
-        <a href="#" onClick="{{ goTech }}" style="font-size:15px;font-weight:500;letter-spacing:-.01em;color:#7FC4E8;border-bottom:1px solid rgba(127,196,232,.42);padding-bottom:5px;white-space:nowrap;transition:color .35s,border-color .35s" style-hover="color:#FFFFFF;border-color:#FFFFFF">Full technology</a>
+        <a data-edit="t37" href="#" onClick="{{ goTech }}" style="font-size:15px;font-weight:500;letter-spacing:-.01em;color:#7FC4E8;border-bottom:1px solid rgba(127,196,232,.42);padding-bottom:5px;white-space:nowrap;transition:color .35s,border-color .35s" style-hover="color:#FFFFFF;border-color:#FFFFFF">Full technology</a>
       </div>
 
       <div style="display:grid;gap:1px;background:rgba(233,236,239,.14);grid-template-columns:repeat(auto-fit,minmax(min(100%,270px),1fr))">
         <div data-reveal data-delay="0" style="background:#0E2337;padding:clamp(24px,3vw,44px);display:flex;flex-direction:column;gap:18px;min-height:clamp(250px,25vw,360px);transition:background .5s" style-hover="background:#142E46">
-          <span style="font-size:clamp(26px,3vw,42px);font-weight:600;line-height:1;letter-spacing:-.04em;color:#3E6E96">01</span>
-          <h3 style="margin:0;font-size:clamp(19px,1.9vw,29px);font-weight:600;line-height:1.2;letter-spacing:-.03em;color:#FFFFFF">Conform</h3>
-          <p style="margin:0;font-size:clamp(13px,1vw,16px);font-weight:400;line-height:1.68;color:#A8BDCE;text-wrap:pretty">Placed against the fascia at closure, the layer is designed to follow irregular tissue surfaces without adding steps to the operation.</p>
+          <span data-edit="t38" style="font-size:clamp(26px,3vw,42px);font-weight:600;line-height:1;letter-spacing:-.04em;color:#3E6E96">01</span>
+          <h3 data-edit="t39" style="margin:0;font-size:clamp(19px,1.9vw,29px);font-weight:600;line-height:1.2;letter-spacing:-.03em;color:#FFFFFF">Conform</h3>
+          <p data-edit="t40" style="margin:0;font-size:clamp(13px,1vw,16px);font-weight:400;line-height:1.68;color:#A8BDCE;text-wrap:pretty">Placed against the fascia at closure, the layer is designed to follow irregular tissue surfaces without adding steps to the operation.</p>
         </div>
         <div data-reveal data-delay="90" style="background:#0E2337;padding:clamp(24px,3vw,44px);display:flex;flex-direction:column;gap:18px;min-height:clamp(250px,25vw,360px);transition:background .5s" style-hover="background:#142E46">
-          <span style="font-size:clamp(26px,3vw,42px);font-weight:600;line-height:1;letter-spacing:-.04em;color:#3E6E96">02</span>
-          <h3 style="margin:0;font-size:clamp(19px,1.9vw,29px);font-weight:600;line-height:1.2;letter-spacing:-.03em;color:#FFFFFF">Hold</h3>
-          <p style="margin:0;font-size:clamp(13px,1vw,16px);font-weight:400;line-height:1.68;color:#A8BDCE;text-wrap:pretty">It is designed to bond the flap to the fascia across their full contact area, eliminating the dead space that drains are placed to manage.</p>
+          <span data-edit="t41" style="font-size:clamp(26px,3vw,42px);font-weight:600;line-height:1;letter-spacing:-.04em;color:#3E6E96">02</span>
+          <h3 data-edit="t42" style="margin:0;font-size:clamp(19px,1.9vw,29px);font-weight:600;line-height:1.2;letter-spacing:-.03em;color:#FFFFFF">Hold</h3>
+          <p data-edit="t43" style="margin:0;font-size:clamp(13px,1vw,16px);font-weight:400;line-height:1.68;color:#A8BDCE;text-wrap:pretty">It is designed to bond the flap to the fascia across their full contact area, eliminating the dead space that drains are placed to manage.</p>
         </div>
         <div data-reveal data-delay="180" style="background:#0E2337;padding:clamp(24px,3vw,44px);display:flex;flex-direction:column;gap:18px;min-height:clamp(250px,25vw,360px);transition:background .5s" style-hover="background:#142E46">
-          <span style="font-size:clamp(26px,3vw,42px);font-weight:600;line-height:1;letter-spacing:-.04em;color:#3E6E96">03</span>
-          <h3 style="margin:0;font-size:clamp(19px,1.9vw,29px);font-weight:600;line-height:1.2;letter-spacing:-.03em;color:#FFFFFF">Resorb</h3>
-          <p style="margin:0;font-size:clamp(13px,1vw,16px);font-weight:400;line-height:1.68;color:#A8BDCE;text-wrap:pretty">As the tissue interface matures, the material is designed to resorb — leaving strength behind rather than hardware.</p>
+          <span data-edit="t44" style="font-size:clamp(26px,3vw,42px);font-weight:600;line-height:1;letter-spacing:-.04em;color:#3E6E96">03</span>
+          <h3 data-edit="t45" style="margin:0;font-size:clamp(19px,1.9vw,29px);font-weight:600;line-height:1.2;letter-spacing:-.03em;color:#FFFFFF">Resorb</h3>
+          <p data-edit="t46" style="margin:0;font-size:clamp(13px,1vw,16px);font-weight:400;line-height:1.68;color:#A8BDCE;text-wrap:pretty">As the tissue interface matures, the material is designed to resorb — leaving strength behind rather than hardware.</p>
         </div>
       </div>
     </div>
@@ -226,18 +227,18 @@
   <section style="position:relative;padding:clamp(80px,11vw,170px) clamp(18px,4vw,54px);background:#0A1A2B;overflow:hidden">
     <div style="position:relative;max-width:1500px;margin:0 auto;display:grid;gap:clamp(30px,4.5vw,76px);grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));align-items:center">
       <div data-reveal style="display:flex;flex-direction:column;gap:22px;min-width:0">
-        <span style="font-size:13px;font-weight:600;line-height:1;color:#7FC4E8">The clinical need</span>
-        <h2 style="margin:0;font-size:clamp(28px,3.8vw,58px);font-weight:500;line-height:1.08;letter-spacing:-.04em;color:#FFFFFF;text-wrap:balance">A drain is a workaround, not a fix.</h2>
-        <p style="margin:0;font-size:clamp(14px,1.05vw,17px);font-weight:400;line-height:1.68;color:#A8BDCE;max-width:520px;text-wrap:pretty">After abdominoplasty and other large-flap procedures, patients go home with tubes, bulbs, and a log book. Surgeons accept the burden because the alternative — fluid collecting in an open plane — is worse.</p>
-        <p style="margin:0;font-size:clamp(14px,1.05vw,17px);font-weight:400;line-height:1.68;color:#A8BDCE;max-width:520px;text-wrap:pretty">We think the better answer is upstream: remove the space instead of draining it.</p>
+        <span data-edit="t47" style="font-size:13px;font-weight:600;line-height:1;color:#7FC4E8">The clinical need</span>
+        <h2 data-edit="t48" style="margin:0;font-size:clamp(28px,3.8vw,58px);font-weight:500;line-height:1.08;letter-spacing:-.04em;color:#FFFFFF;text-wrap:balance">A drain is a workaround, not a fix.</h2>
+        <p data-edit="t49" style="margin:0;font-size:clamp(14px,1.05vw,17px);font-weight:400;line-height:1.68;color:#A8BDCE;max-width:520px;text-wrap:pretty">After abdominoplasty and other large-flap procedures, patients go home with tubes, bulbs, and a log book. Surgeons accept the burden because the alternative — fluid collecting in an open plane — is worse.</p>
+        <p data-edit="t50" style="margin:0;font-size:clamp(14px,1.05vw,17px);font-weight:400;line-height:1.68;color:#A8BDCE;max-width:520px;text-wrap:pretty">We think the better answer is upstream: remove the space instead of draining it.</p>
         <div style="display:flex;flex-wrap:wrap;border-top:1px solid rgba(233,236,239,.14);margin-top:8px">
           <div style="flex:1 1 180px;padding:20px 20px 0 0;border-right:1px solid rgba(233,236,239,.14)">
-            <span style="display:block;font-size:13px;font-weight:600;line-height:1;color:#8EA6BA;margin-bottom:10px">Replaces</span>
-            <span style="font-size:clamp(15px,1.2vw,19px);font-weight:500;line-height:1.4;letter-spacing:-.02em;color:#FFFFFF">Closed-suction drains</span>
+            <span data-edit="t51" style="display:block;font-size:13px;font-weight:600;line-height:1;color:#8EA6BA;margin-bottom:10px">Replaces</span>
+            <span data-edit="t52" style="font-size:clamp(15px,1.2vw,19px);font-weight:500;line-height:1.4;letter-spacing:-.02em;color:#FFFFFF">Closed-suction drains</span>
           </div>
           <div style="flex:1 1 180px;padding:20px 0 0 20px">
-            <span style="display:block;font-size:13px;font-weight:600;line-height:1;color:#8EA6BA;margin-bottom:10px">And</span>
-            <span style="font-size:clamp(15px,1.2vw,19px);font-weight:500;line-height:1.4;letter-spacing:-.02em;color:#FFFFFF">Progressive tension sutures</span>
+            <span data-edit="t53" style="display:block;font-size:13px;font-weight:600;line-height:1;color:#8EA6BA;margin-bottom:10px">And</span>
+            <span data-edit="t54" style="font-size:clamp(15px,1.2vw,19px);font-weight:500;line-height:1.4;letter-spacing:-.02em;color:#FFFFFF">Progressive tension sutures</span>
           </div>
         </div>
       </div>
@@ -246,8 +247,8 @@
         <div style="position:relative;aspect-ratio:4/5;overflow:hidden;background:repeating-linear-gradient(135deg,#12283C 0 11px,#17314A 11px 22px)">
           <div data-par="26" style="position:absolute;inset:-6%;background:repeating-linear-gradient(135deg,#12283C 0 11px,#17314A 11px 22px);will-change:transform"></div>
           <div style="position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:clamp(18px,2.4vw,32px);gap:8px">
-            <span style="font-size:13px;font-weight:600;line-height:1;color:#8EA6BA">Image slot — 4:5 portrait</span>
-            <span style="font-size:clamp(13px,1.1vw,16px);font-weight:400;line-height:1.5;color:#A8BDCE;max-width:330px">Operative photograph or surgical still. Drop a real image here — the AI cartoons stay out of the site.</span>
+            <span data-edit="t55" style="font-size:13px;font-weight:600;line-height:1;color:#8EA6BA">Image slot — 4:5 portrait</span>
+            <span data-edit="t56" style="font-size:clamp(13px,1.1vw,16px);font-weight:400;line-height:1.5;color:#A8BDCE;max-width:330px">Operative photograph or surgical still. Drop a real image here — the AI cartoons stay out of the site.</span>
           </div>
         </div>
       </div>
@@ -257,17 +258,17 @@
   <section style="position:relative;background:#0A1A2B;overflow:hidden">
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));align-items:stretch">
       <div data-reveal style="padding:clamp(56px,8vw,130px) clamp(18px,4vw,54px);display:flex;flex-direction:column;justify-content:center;gap:24px;min-width:0">
-        <span style="font-size:13px;font-weight:600;line-height:1;color:#7FC4E8">Where we are</span>
-        <h2 style="margin:0;font-size:clamp(28px,3.8vw,58px);font-weight:500;line-height:1.06;letter-spacing:-.045em;color:#FFFFFF;text-wrap:balance">Built in St.&nbsp;Louis, inside the Cortex Innovation District.</h2>
-        <p style="margin:0;font-size:clamp(14px,1.05vw,17px);font-weight:400;line-height:1.68;color:#A8BDCE;max-width:480px;text-wrap:pretty">Two hundred acres of laboratories, clinicians, and manufacturing sit between Washington University Medical Campus and the city. Our bench is a short walk from the operating rooms where the problem shows up.</p>
+        <span data-edit="t57" style="font-size:13px;font-weight:600;line-height:1;color:#7FC4E8">Where we are</span>
+        <h2 data-edit="t58" style="margin:0;font-size:clamp(28px,3.8vw,58px);font-weight:500;line-height:1.06;letter-spacing:-.045em;color:#FFFFFF;text-wrap:balance">Built in St.&nbsp;Louis, inside the Cortex Innovation District.</h2>
+        <p data-edit="t59" style="margin:0;font-size:clamp(14px,1.05vw,17px);font-weight:400;line-height:1.68;color:#A8BDCE;max-width:480px;text-wrap:pretty">Two hundred acres of laboratories, clinicians, and manufacturing sit between Washington University Medical Campus and the city. Our bench is a short walk from the operating rooms where the problem shows up.</p>
         <div style="display:flex;flex-direction:column;gap:8px;padding-top:20px;border-top:1px solid rgba(233,236,239,.14)">
-          <span style="font-size:13px;font-weight:600;line-height:1;color:#8EA6BA">Laboratory</span>
-          <span style="font-size:clamp(14px,1.1vw,17px);font-weight:400;line-height:1.6;color:#FFFFFF">4340 Duncan Avenue, Suite 207<br>St. Louis, Missouri 63110</span>
+          <span data-edit="t60" style="font-size:13px;font-weight:600;line-height:1;color:#8EA6BA">Laboratory</span>
+          <span data-edit="t61" style="font-size:clamp(14px,1.1vw,17px);font-weight:400;line-height:1.6;color:#FFFFFF">4340 Duncan Avenue, Suite 207<br>St. Louis, Missouri 63110</span>
         </div>
       </div>
       <div style="position:relative;min-height:clamp(320px,50vw,620px);background:#0A1A2B;border-left:1px solid rgba(233,236,239,.12)">
         <iframe src="stl-map.html" title="Map of the Cortex Innovation District, St. Louis" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;border:0;display:block"></iframe>
-        <span style="position:absolute;right:12px;bottom:10px;font-size:9px;font-weight:500;letter-spacing:.04em;line-height:1;color:#5E7A93">Map data © OpenStreetMap contributors, Esri</span>
+        <span data-edit="t62" style="position:absolute;right:12px;bottom:10px;font-size:9px;font-weight:500;letter-spacing:.04em;line-height:1;color:#5E7A93">Map data © OpenStreetMap contributors, Esri</span>
       </div>
     </div>
   </section>
@@ -276,8 +277,8 @@
     <div style="position:relative;max-width:1500px;margin:0 auto;display:flex;flex-direction:column;gap:clamp(40px,5.5vw,84px)">
       <div data-reveal style="display:grid;gap:clamp(22px,3vw,54px);grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));align-items:center">
         <div style="display:flex;flex-direction:column;gap:12px;max-width:330px">
-          <span style="font-size:13px;font-weight:600;line-height:1;color:#7FC4E8">Team experience</span>
-          <span style="font-size:clamp(16px,1.4vw,21px);font-weight:400;line-height:1.42;color:#8EA6BA">Where our team has built, operated, and published before Tissuelock.</span>
+          <span data-edit="t63" style="font-size:13px;font-weight:600;line-height:1;color:#7FC4E8">Team experience</span>
+          <span data-edit="t64" style="font-size:clamp(16px,1.4vw,21px);font-weight:400;line-height:1.42;color:#8EA6BA">Where our team has built, operated, and published before Tissuelock.</span>
         </div>
         <div style="grid-column:span 2;min-width:0;display:grid;gap:1px;background:rgba(233,236,239,.13);grid-template-columns:repeat(auto-fit,minmax(min(50%,150px),1fr))">
           <span style="background:#12283C;display:flex;align-items:center;justify-content:center;padding:26px 20px;min-height:104px;transition:background .45s" style-hover="background:#17314A"><img src="assets/logos/w/gore.png" alt="Gore" style="max-height:44px;width:auto;opacity:.66"></span>
@@ -294,13 +295,13 @@
 
       <div data-reveal style="display:grid;gap:clamp(22px,3vw,54px);grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));align-items:center">
         <div style="display:flex;flex-direction:column;gap:12px;max-width:330px">
-          <span style="font-size:13px;font-weight:600;line-height:1;color:#7FC4E8">Partners &amp; backing</span>
-          <span style="font-size:clamp(16px,1.4vw,21px);font-weight:400;line-height:1.42;color:#8EA6BA">The St. Louis ecosystem supporting the company.</span>
+          <span data-edit="t65" style="font-size:13px;font-weight:600;line-height:1;color:#7FC4E8">Partners &amp; backing</span>
+          <span data-edit="t66" style="font-size:clamp(16px,1.4vw,21px);font-weight:400;line-height:1.42;color:#8EA6BA">The St. Louis ecosystem supporting the company.</span>
         </div>
         <div style="grid-column:span 2;min-width:0;display:grid;gap:1px;background:rgba(233,236,239,.13);grid-template-columns:repeat(auto-fit,minmax(min(50%,190px),1fr))">
           <span style="background:#12283C;display:flex;align-items:center;justify-content:center;padding:30px 24px;min-height:128px;transition:background .45s" style-hover="background:#17314A"><img src="assets/logos/w/biostl.png" alt="BioSTL" style="max-height:50px;width:auto;opacity:.72"></span>
-          <span style="background:#12283C;display:flex;align-items:center;justify-content:center;padding:30px 24px;min-height:128px;transition:background .45s" style-hover="background:#17314A"><span style="font-size:19px;font-weight:600;letter-spacing:-.02em;color:#A8BDCE">Stifel</span></span>
-          <span style="background:#12283C;display:flex;align-items:center;justify-content:center;padding:30px 24px;min-height:128px;font-size:14px;font-weight:500;line-height:1.5;letter-spacing:-.01em;color:#8EA6BA;text-align:center;transition:background .45s" style-hover="background:#17314A">Cortex Innovation<br>Community</span>
+          <span style="background:#12283C;display:flex;align-items:center;justify-content:center;padding:30px 24px;min-height:128px;transition:background .45s" style-hover="background:#17314A"><span data-edit="t67" style="font-size:19px;font-weight:600;letter-spacing:-.02em;color:#A8BDCE">Stifel</span></span>
+          <span data-edit="t68" style="background:#12283C;display:flex;align-items:center;justify-content:center;padding:30px 24px;min-height:128px;font-size:14px;font-weight:500;line-height:1.5;letter-spacing:-.01em;color:#8EA6BA;text-align:center;transition:background .45s" style-hover="background:#17314A">Cortex Innovation<br>Community</span>
         </div>
       </div>
     </div>
@@ -309,10 +310,10 @@
   <section id="contact" style="position:relative;padding:clamp(80px,11vw,180px) clamp(18px,4vw,54px);background:#071624;overflow:hidden">
     <canvas data-gl="waves" aria-hidden="true" style="position:absolute;top:-18%;right:-14%;width:min(86vw,1000px);height:min(70vh,620px);display:block;opacity:.7;pointer-events:none"></canvas>
     <div data-reveal style="position:relative;max-width:1500px;margin:0 auto;display:grid;gap:clamp(26px,4vw,72px);grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));align-items:flex-end">
-      <h2 style="margin:0;grid-column:span 2;min-width:0;font-size:clamp(30px,5.2vw,86px);font-weight:500;line-height:1;letter-spacing:-.05em;color:#FFFFFF;text-wrap:balance">If you operate, invest, or build materials — talk to us.</h2>
+      <h2 data-edit="t69" style="margin:0;grid-column:span 2;min-width:0;font-size:clamp(30px,5.2vw,86px);font-weight:500;line-height:1;letter-spacing:-.05em;color:#FFFFFF;text-wrap:balance">If you operate, invest, or build materials — talk to us.</h2>
       <div style="display:flex;flex-direction:column;gap:22px">
-        <p style="margin:0;font-size:clamp(14px,1.05vw,17px);font-weight:400;line-height:1.66;color:#A8BDCE;text-wrap:pretty">We are pre-clinical and selective about partners: plastic and reconstructive surgeons, biomaterials scientists, and investors who know devices.</p>
-        <a href="mailto:connect@tissuelock.com" style="display:inline-flex;align-self:flex-start;font-size:15px;font-weight:500;letter-spacing:-.01em;color:#0A1A2B;background:#E9ECEF;padding:15px 22px;transition:background .35s" style-hover="background:#FFFFFF">connect@tissuelock.com</a>
+        <p data-edit="t70" style="margin:0;font-size:clamp(14px,1.05vw,17px);font-weight:400;line-height:1.66;color:#A8BDCE;text-wrap:pretty">We are pre-clinical and selective about partners: plastic and reconstructive surgeons, biomaterials scientists, and investors who know devices.</p>
+        <a data-edit="t71" href="mailto:connect@tissuelock.com" style="display:inline-flex;align-self:flex-start;font-size:15px;font-weight:500;letter-spacing:-.01em;color:#0A1A2B;background:#E9ECEF;padding:15px 22px;transition:background .35s" style-hover="background:#FFFFFF">connect@tissuelock.com</a>
       </div>
     </div>
   </section>
@@ -632,31 +633,31 @@
       <div style="grid-column:span 2;min-width:0;display:flex;flex-direction:column;gap:18px">
         <span style="display:flex;align-items:center;gap:12px;color:#FFFFFF">
           <img src="assets/logo-mark-dark-clean.png" alt="" style="height:30px;width:auto;display:block">
-          <span style="font-size:24px;font-weight:800;line-height:1;letter-spacing:-.04em">Tissuelock</span>
+          <span data-edit="t72" style="font-size:24px;font-weight:800;line-height:1;letter-spacing:-.04em">Tissuelock</span>
         </span>
-        <span style="font-size:clamp(16px,1.5vw,21px);font-weight:400;line-height:1.4;letter-spacing:-.02em;color:#6E90AC;max-width:320px">Bringing tissue together.</span>
+        <span data-edit="t73" style="font-size:clamp(16px,1.5vw,21px);font-weight:400;line-height:1.4;letter-spacing:-.02em;color:#6E90AC;max-width:320px">Bringing tissue together.</span>
       </div>
       <div style="display:flex;flex-direction:column;gap:13px">
-        <span style="font-size:13px;font-weight:600;line-height:1;color:#7FC4E8">Company</span>
-        <a href="#" onClick="{{ goHome }}" style="font-size:14px;font-weight:400;line-height:1;color:#9FB4C6;transition:color .35s" style-hover="color:#FFFFFF">Home</a>
-        <a href="#" onClick="{{ goTech }}" style="font-size:14px;font-weight:400;line-height:1;color:#9FB4C6;transition:color .35s" style-hover="color:#FFFFFF">Technology</a>
-        <a href="#" onClick="{{ goAbout }}" style="font-size:14px;font-weight:400;line-height:1;color:#9FB4C6;transition:color .35s" style-hover="color:#FFFFFF">About</a>
+        <span data-edit="t74" style="font-size:13px;font-weight:600;line-height:1;color:#7FC4E8">Company</span>
+        <a data-edit="t75" href="#" onClick="{{ goHome }}" style="font-size:14px;font-weight:400;line-height:1;color:#9FB4C6;transition:color .35s" style-hover="color:#FFFFFF">Home</a>
+        <a data-edit="t76" href="#" onClick="{{ goTech }}" style="font-size:14px;font-weight:400;line-height:1;color:#9FB4C6;transition:color .35s" style-hover="color:#FFFFFF">Technology</a>
+        <a data-edit="t77" href="#" onClick="{{ goAbout }}" style="font-size:14px;font-weight:400;line-height:1;color:#9FB4C6;transition:color .35s" style-hover="color:#FFFFFF">About</a>
       </div>
       <div style="display:flex;flex-direction:column;gap:13px">
-        <span style="font-size:13px;font-weight:600;line-height:1;color:#7FC4E8">Connect</span>
-        <a href="#" onClick="{{ goTeam }}" style="font-size:14px;font-weight:400;line-height:1;color:#9FB4C6;transition:color .35s" style-hover="color:#FFFFFF">Team</a>
-        <a href="#" onClick="{{ goInvestors }}" style="font-size:14px;font-weight:400;line-height:1;color:#9FB4C6;transition:color .35s" style-hover="color:#FFFFFF">Investors</a>
-        <a href="mailto:connect@tissuelock.com" style="font-size:14px;font-weight:400;line-height:1;color:#9FB4C6;transition:color .35s" style-hover="color:#FFFFFF">connect@tissuelock.com</a>
-        <span style="font-size:14px;font-weight:400;line-height:1.62;color:#6E90AC;padding-top:5px">4340 Duncan Avenue<br>Suite 207<br>St. Louis, MO 63110</span>
+        <span data-edit="t78" style="font-size:13px;font-weight:600;line-height:1;color:#7FC4E8">Connect</span>
+        <a data-edit="t79" href="#" onClick="{{ goTeam }}" style="font-size:14px;font-weight:400;line-height:1;color:#9FB4C6;transition:color .35s" style-hover="color:#FFFFFF">Team</a>
+        <a data-edit="t80" href="#" onClick="{{ goInvestors }}" style="font-size:14px;font-weight:400;line-height:1;color:#9FB4C6;transition:color .35s" style-hover="color:#FFFFFF">Investors</a>
+        <a data-edit="t81" href="mailto:connect@tissuelock.com" style="font-size:14px;font-weight:400;line-height:1;color:#9FB4C6;transition:color .35s" style-hover="color:#FFFFFF">connect@tissuelock.com</a>
+        <span data-edit="t82" style="font-size:14px;font-weight:400;line-height:1.62;color:#6E90AC;padding-top:5px">4340 Duncan Avenue<br>Suite 207<br>St. Louis, MO 63110</span>
       </div>
     </div>
 
     <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:18px;padding-top:26px;border-top:1px solid rgba(159,180,198,.16)">
-      <span style="font-size:13px;font-weight:400;line-height:1.6;color:#6E90AC">Tissuelock, LLC</span>
+      <span data-edit="t83" style="font-size:13px;font-weight:400;line-height:1.6;color:#6E90AC">Tissuelock, LLC</span>
       <div style="display:flex;flex-wrap:wrap;gap:24px">
-        <a href="#" style="font-size:13px;font-weight:400;line-height:1;color:#6E90AC;transition:color .35s" style-hover="color:#FFFFFF">Legal notices</a>
-        <a href="#" style="font-size:13px;font-weight:400;line-height:1;color:#6E90AC;transition:color .35s" style-hover="color:#FFFFFF">Privacy policy</a>
-        <a href="#" style="font-size:13px;font-weight:400;line-height:1;color:#6E90AC;transition:color .35s" style-hover="color:#FFFFFF">Website terms of use</a>
+        <a data-edit="t84" href="#" style="font-size:13px;font-weight:400;line-height:1;color:#6E90AC;transition:color .35s" style-hover="color:#FFFFFF">Legal notices</a>
+        <a data-edit="t85" href="#" style="font-size:13px;font-weight:400;line-height:1;color:#6E90AC;transition:color .35s" style-hover="color:#FFFFFF">Privacy policy</a>
+        <a data-edit="t86" href="#" style="font-size:13px;font-weight:400;line-height:1;color:#6E90AC;transition:color .35s" style-hover="color:#FFFFFF">Website terms of use</a>
       </div>
     </div>
   </div>
