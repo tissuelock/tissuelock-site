@@ -241,6 +241,7 @@
     bar.querySelectorAll('button').forEach(function (b) { b.disabled = true; });
     say('Publishing…', true);
     try {
+      var missing = [];
       for (var attempt = 0; attempt < 2; attempt++) {
         var r = await api(token, 'GET');
         if (r.status === 401 || r.status === 403 || r.status === 404) {
@@ -250,9 +251,12 @@
         if (!r.ok) throw new Error('Could not read the site files (' + r.status + ').');
         var file = await r.json();
         var src = b64decode(file.content);
+        missing = [];
         ids.forEach(function (id) {
-          src = replaceInSource(src, id, toHtml(pending[id], originals[id]));
+          try { src = replaceInSource(src, id, toHtml(pending[id], originals[id])); }
+          catch (e) { missing.push(id); }
         });
+        if (missing.length === ids.length) throw new Error('The page layout changed since you opened it. Copy your text, refresh, and re-apply.');
         var p = await api(token, 'PUT', {
           message: 'Edit website text (' + ids.length + ' change' + (ids.length > 1 ? 's' : '') + ')',
           content: b64encode(src), sha: file.sha, branch: BRANCH
@@ -266,11 +270,13 @@
         break;
       }
       ids.forEach(function (id) {
+        if (missing.indexOf(id) >= 0) return;
         originals[id] = pending[id];
         delete pending[id];
       });
       refresh();
-      say('✓ Published. Live in 1–2 minutes (refresh to see it).', true);
+      if (missing.length) say('Published ' + (ids.length - missing.length) + ' change(s). ' + missing.length + ' block(s) no longer exist on the page (still highlighted). Refresh and redo those.', true);
+      else say('✓ Published. Live in 1–2 minutes (refresh to see it).', true);
     } catch (err) {
       say(err.message, true);
     } finally {
