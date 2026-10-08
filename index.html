@@ -43,6 +43,11 @@
   a { color: #7FC4E8; text-decoration: none; }
   a:hover { color: #FFFFFF; }
   img { max-width: 100%; }
+  /* Team institution logos drawn in brand colour from the white logo files */
+  [data-logo] { -webkit-mask: var(--m) center / contain no-repeat; mask: var(--m) center / contain no-repeat; }
+  [data-logo="washu"] { --m: url(assets/logos/w/washu.png); background: #A51417; }
+  [data-logo="hopkins"] { --m: url(assets/logos/w/hopkins.png); background: #002D72; }
+  [data-logo="checkpoint"] { --m: url(assets/logos/w/checkpoint.png); background: #0A3A82; }
   @media (min-width: 1200px) { [data-team] [data-name] { white-space: nowrap; } }
   /* Team grid: everyone on one row on wide screens */
   [data-team] { grid-template-columns: repeat(5, minmax(0, 1fr)); }
@@ -364,39 +369,6 @@
     </div>
   </section>
 
-  <section style="padding:clamp(70px,9vw,140px) clamp(18px,4vw,54px);background:#0A1A2B">
-    <div style="max-width:1500px;margin:0 auto">
-      <h2 data-edit="t102" data-reveal style="margin:0 0 clamp(36px,5vw,72px);font-size:clamp(28px,4.2vw,68px);font-weight:500;line-height:1.04;letter-spacing:-.045em;color:#FFFFFF;max-width:900px;text-wrap:balance">Where the programme stands</h2>
-      <div style="display:grid;gap:1px;background:rgba(233,236,239,.14);grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr))">
-        <div data-reveal data-delay="0" style="background:#0A1A2B;padding:clamp(22px,2.8vw,40px);display:flex;flex-direction:column;gap:14px;min-height:240px">
-          <span data-edit="t103" style="font-size:clamp(24px,2.8vw,40px);font-weight:600;line-height:1;letter-spacing:-.04em;color:#3E6E96">01</span>
-          <h3 data-edit="t104" style="margin:0;font-size:clamp(17px,1.6vw,24px);font-weight:600;line-height:1.22;letter-spacing:-.03em;color:#FFFFFF">Material selection</h3>
-          <p data-edit="t105" style="margin:0;font-size:13px;font-weight:400;line-height:1.66;color:#A8BDCE">Formulation and bench characterisation of adhesion, conformability, and resorption profile.</p>
-          <span data-edit="t106" style="margin-top:auto;font-size:13px;font-weight:600;color:#7FC4E8">Complete</span>
-        </div>
-        <div data-reveal data-delay="90" style="background:#0A1A2B;padding:clamp(22px,2.8vw,40px);display:flex;flex-direction:column;gap:14px;min-height:240px">
-          <span data-edit="t107" style="font-size:clamp(24px,2.8vw,40px);font-weight:600;line-height:1;letter-spacing:-.04em;color:#3E6E96">02</span>
-          <h3 data-edit="t108" style="margin:0;font-size:clamp(17px,1.6vw,24px);font-weight:600;line-height:1.22;letter-spacing:-.03em;color:#FFFFFF">Pre-clinical</h3>
-          <p data-edit="t109" style="margin:0;font-size:13px;font-weight:400;line-height:1.66;color:#A8BDCE">Large-animal work to test whether the bond holds through the seroma window and resorbs cleanly.</p>
-          <span data-edit="t110" style="margin-top:auto;font-size:13px;font-weight:600;color:#FFFFFF">Current stage</span>
-        </div>
-        <div data-reveal data-delay="180" style="background:#0A1A2B;padding:clamp(22px,2.8vw,40px);display:flex;flex-direction:column;gap:14px;min-height:240px">
-          <span data-edit="t111" style="font-size:clamp(24px,2.8vw,40px);font-weight:600;line-height:1;letter-spacing:-.04em;color:#3E6E96">03</span>
-          <h3 data-edit="t112" style="margin:0;font-size:clamp(17px,1.6vw,24px);font-weight:600;line-height:1.22;letter-spacing:-.03em;color:#FFFFFF">Regulatory path</h3>
-          <p data-edit="t113" style="margin:0;font-size:13px;font-weight:400;line-height:1.66;color:#A8BDCE">Predicate analysis and pre-submission strategy with device regulatory counsel.</p>
-          <span data-edit="t114" style="margin-top:auto;font-size:13px;font-weight:600;color:#8EA6BA">In planning</span>
-        </div>
-        <div data-reveal data-delay="270" style="background:#0A1A2B;padding:clamp(22px,2.8vw,40px);display:flex;flex-direction:column;gap:14px;min-height:240px">
-          <span data-edit="t115" style="font-size:clamp(24px,2.8vw,40px);font-weight:600;line-height:1;letter-spacing:-.04em;color:#3E6E96">04</span>
-          <h3 data-edit="t116" style="margin:0;font-size:clamp(17px,1.6vw,24px);font-weight:600;line-height:1.22;letter-spacing:-.03em;color:#FFFFFF">First-in-human</h3>
-          <p data-edit="t117" style="margin:0;font-size:13px;font-weight:400;line-height:1.66;color:#A8BDCE">Abdominoplasty as the entry indication, with surgeon partners in St. Louis.</p>
-          <span data-edit="t118" style="margin-top:auto;font-size:13px;font-weight:600;color:#8EA6BA">Ahead</span>
-        </div>
-      </div>
-      <p data-edit="t119" data-reveal style="margin:clamp(26px,3vw,44px) 0 0;font-size:clamp(13px,1.1vw,16px);font-weight:400;line-height:1.6;color:#8EA6BA;max-width:620px">Stage descriptions are for orientation only. Tissuelock is an investigational device and has not been cleared or approved for any use.</p>
-    </div>
-  </section>
-
   <section style="position:relative;padding:clamp(80px,11vw,170px) clamp(18px,4vw,54px);background:#0E2337;overflow:hidden">
     <div style="position:relative;max-width:1500px;margin:0 auto;display:grid;gap:clamp(30px,4.5vw,76px);grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));align-items:center">
       <div data-reveal style="display:flex;flex-direction:column;gap:22px;min-width:0">
@@ -450,7 +422,7 @@
         <div style="display:flex;flex-direction:column;gap:9px">
           <span data-edit="t126" data-name style="font-size:clamp(15px,1.15vw,18px);font-weight:600;line-height:1.25;letter-spacing:-.025em;color:#0A1A2B">Grihith Varaday, BA</span>
           <span data-edit="t127" style="font-size:13px;font-weight:600;line-height:1.4;color:#1F5A86">Chief Executive Officer</span>
-          <div data-inst style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px"><span title="WashU Medicine" style="display:inline-flex;align-items:center;justify-content:center;height:34px;padding:0 11px;border-radius:7px;background:#A51417"><img src="assets/logos/w/washu.png" alt="WashU Medicine" style="height:16px;width:auto;max-width:118px;display:block"></span><span title="L.E.K. Consulting" style="display:inline-flex;align-items:center;justify-content:center;height:34px;padding:0 11px;border-radius:7px;background:#0A1A2B"><img src="assets/logos/w/lek.png" alt="L.E.K. Consulting" style="height:15px;width:auto;max-width:118px;display:block"></span><span title="SVB" style="display:inline-flex;align-items:center;justify-content:center;height:34px;padding:0 11px;border-radius:7px;background:#0A1A2B"><img src="assets/logos/w/svb.png" alt="SVB" style="height:18px;width:auto;max-width:118px;display:block"></span></div>
+          <div data-inst style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px"><span title="WashU Medicine" style="display:inline-flex;align-items:center;justify-content:center;height:36px;padding:0 11px;border-radius:7px;background:#FFFFFF;border:1px solid rgba(10,26,43,.1)"><span role="img" aria-label="WashU Medicine" data-logo="washu" style="display:block;width:86px;height:17px"></span></span><span title="L.E.K. Consulting" style="display:inline-flex;align-items:center;justify-content:center;height:36px;padding:0 11px;border-radius:7px;background:#FFFFFF;border:1px solid rgba(10,26,43,.1)"><img src="assets/logos/c/lek.svg" alt="L.E.K. Consulting" style="height:15px;width:auto;max-width:120px;display:block"></span><span title="Silicon Valley Bank" style="display:inline-flex;align-items:center;justify-content:center;height:36px;padding:0 11px;border-radius:7px;background:#FFFFFF;border:1px solid rgba(10,26,43,.1)"><img src="assets/logos/c/svb.svg" alt="Silicon Valley Bank" style="height:17px;width:auto;max-width:120px;display:block"></span></div>
         </div>
       </div>
       <div data-reveal data-delay="80" style="display:flex;flex-direction:column;gap:18px;min-width:0">
@@ -460,7 +432,7 @@
         <div style="display:flex;flex-direction:column;gap:9px">
           <span data-edit="t129" data-name style="font-size:clamp(15px,1.15vw,18px);font-weight:600;line-height:1.25;letter-spacing:-.025em;color:#0A1A2B">Justin Sacks, MD, MBA, FACS</span>
           <span data-edit="t130" style="font-size:13px;font-weight:600;line-height:1.4;color:#1F5A86">Chief Medical Officer</span>
-          <div data-inst style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px"><span title="WashU Medicine" style="display:inline-flex;align-items:center;justify-content:center;height:34px;padding:0 11px;border-radius:7px;background:#A51417"><img src="assets/logos/w/washu.png" alt="WashU Medicine" style="height:16px;width:auto;max-width:118px;display:block"></span><span title="Johns Hopkins Medicine" style="display:inline-flex;align-items:center;justify-content:center;height:34px;padding:0 11px;border-radius:7px;background:#002D72"><img src="assets/logos/w/hopkins.png" alt="Johns Hopkins Medicine" style="height:19px;width:auto;max-width:118px;display:block"></span><span title="Lifesprout" style="display:inline-flex;align-items:center;justify-content:center;height:34px;padding:0 11px;border-radius:7px;background:#0A1A2B"><img src="assets/logos/w/lifesprout.png" alt="Lifesprout" style="height:22px;width:auto;max-width:118px;display:block"></span></div>
+          <div data-inst style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px"><span title="WashU Medicine" style="display:inline-flex;align-items:center;justify-content:center;height:36px;padding:0 11px;border-radius:7px;background:#FFFFFF;border:1px solid rgba(10,26,43,.1)"><span role="img" aria-label="WashU Medicine" data-logo="washu" style="display:block;width:86px;height:17px"></span></span><span title="Johns Hopkins Medicine" style="display:inline-flex;align-items:center;justify-content:center;height:36px;padding:0 11px;border-radius:7px;background:#FFFFFF;border:1px solid rgba(10,26,43,.1)"><span role="img" aria-label="Johns Hopkins Medicine" data-logo="hopkins" style="display:block;width:84px;height:19px"></span></span><span title="Lifesprout" style="display:inline-flex;align-items:center;justify-content:center;height:36px;padding:0 11px;border-radius:7px;background:#FFFFFF;border:1px solid rgba(10,26,43,.1)"><img src="assets/logos/c/lifesprout.webp" alt="Lifesprout" style="height:24px;width:auto;max-width:120px;display:block"></span></div>
         </div>
       </div>
       <div data-reveal data-delay="160" style="display:flex;flex-direction:column;gap:18px;min-width:0">
@@ -470,7 +442,7 @@
         <div style="display:flex;flex-direction:column;gap:9px">
           <span data-edit="t132" data-name style="font-size:clamp(15px,1.15vw,18px);font-weight:600;line-height:1.25;letter-spacing:-.025em;color:#0A1A2B">Matthew Wood, PhD</span>
           <span data-edit="t133" style="font-size:13px;font-weight:600;line-height:1.4;color:#1F5A86">Chief Scientific Officer</span>
-          <div data-inst style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px"><span title="WashU Medicine" style="display:inline-flex;align-items:center;justify-content:center;height:34px;padding:0 11px;border-radius:7px;background:#A51417"><img src="assets/logos/w/washu.png" alt="WashU Medicine" style="height:16px;width:auto;max-width:118px;display:block"></span><span title="Renerva" style="display:inline-flex;align-items:center;justify-content:center;height:34px;padding:0 11px;border-radius:7px;background:#0A1A2B"><img src="assets/logos/w/renerva.png" alt="Renerva" style="height:16px;width:auto;max-width:118px;display:block"></span><span title="Checkpoint Surgical" style="display:inline-flex;align-items:center;justify-content:center;height:34px;padding:0 11px;border-radius:7px;background:#0A1A2B"><img src="assets/logos/w/checkpoint.png" alt="Checkpoint Surgical" style="height:19px;width:auto;max-width:118px;display:block"></span></div>
+          <div data-inst style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px"><span title="WashU Medicine" style="display:inline-flex;align-items:center;justify-content:center;height:36px;padding:0 11px;border-radius:7px;background:#FFFFFF;border:1px solid rgba(10,26,43,.1)"><span role="img" aria-label="WashU Medicine" data-logo="washu" style="display:block;width:86px;height:17px"></span></span><span title="Renerva" style="display:inline-flex;align-items:center;justify-content:center;height:36px;padding:0 11px;border-radius:7px;background:#FFFFFF;border:1px solid rgba(10,26,43,.1)"><img src="assets/logos/c/renerva.png" alt="Renerva" style="height:15px;width:auto;max-width:120px;display:block"></span><span title="Checkpoint Surgical" style="display:inline-flex;align-items:center;justify-content:center;height:36px;padding:0 11px;border-radius:7px;background:#FFFFFF;border:1px solid rgba(10,26,43,.1)"><span role="img" aria-label="Checkpoint Surgical" data-logo="checkpoint" style="display:block;width:70px;height:21px"></span></span></div>
         </div>
       </div>
       <div data-reveal data-delay="240" style="display:flex;flex-direction:column;gap:18px;min-width:0">
@@ -480,7 +452,7 @@
         <div style="display:flex;flex-direction:column;gap:9px">
           <span data-edit="t135" data-name style="font-size:clamp(15px,1.15vw,18px);font-weight:600;line-height:1.25;letter-spacing:-.025em;color:#0A1A2B">Linda Elkins, MBA, MS</span>
           <span data-edit="t136" style="font-size:13px;font-weight:600;line-height:1.4;color:#1F5A86">Chief Operating Officer</span>
-          <div data-inst style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px"><span title="The Wharton School, University of Pennsylvania" style="display:inline-flex;align-items:center;justify-content:center;height:34px;padding:0 11px;border-radius:7px;background:#011F5B;font-size:11px;font-weight:700;letter-spacing:.1em;color:#FFFFFF">WHARTON · PENN</span><span title="W. L. Gore" style="display:inline-flex;align-items:center;justify-content:center;height:34px;padding:0 11px;border-radius:7px;background:#0A1A2B"><img src="assets/logos/w/gore.png" alt="W. L. Gore" style="height:22px;width:auto;max-width:118px;display:block"></span></div>
+          <div data-inst style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px"><span title="The Wharton School, University of Pennsylvania" style="display:inline-flex;align-items:center;justify-content:center;height:36px;padding:0 11px;border-radius:7px;background:#FFFFFF;border:1px solid rgba(10,26,43,.1)"><img src="assets/logos/c/wharton.png" alt="The Wharton School, University of Pennsylvania" style="height:23px;width:auto;max-width:120px;display:block"></span><span title="W. L. Gore & Associates" style="display:inline-flex;align-items:center;justify-content:center;height:36px;padding:0 11px;border-radius:7px;background:#FFFFFF;border:1px solid rgba(10,26,43,.1)"><img src="assets/logos/c/gore.svg" alt="W. L. Gore & Associates" style="height:22px;width:auto;max-width:120px;display:block"></span></div>
         </div>
       </div>
       <div data-reveal data-delay="320" style="display:flex;flex-direction:column;gap:18px;min-width:0">
@@ -490,7 +462,7 @@
         <div style="display:flex;flex-direction:column;gap:9px">
           <span data-edit="t138" data-name style="font-size:clamp(15px,1.15vw,18px);font-weight:600;line-height:1.25;letter-spacing:-.025em;color:#0A1A2B">Xiaowei Li, PhD</span>
           <span data-edit="t139" style="font-size:13px;font-weight:600;line-height:1.4;color:#1F5A86">Head, Scientific Advisory</span>
-          <div data-inst style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px"><span title="WashU Medicine" style="display:inline-flex;align-items:center;justify-content:center;height:34px;padding:0 11px;border-radius:7px;background:#A51417"><img src="assets/logos/w/washu.png" alt="WashU Medicine" style="height:16px;width:auto;max-width:118px;display:block"></span><span title="Johns Hopkins Medicine" style="display:inline-flex;align-items:center;justify-content:center;height:34px;padding:0 11px;border-radius:7px;background:#002D72"><img src="assets/logos/w/hopkins.png" alt="Johns Hopkins Medicine" style="height:19px;width:auto;max-width:118px;display:block"></span></div>
+          <div data-inst style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px"><span title="WashU Medicine" style="display:inline-flex;align-items:center;justify-content:center;height:36px;padding:0 11px;border-radius:7px;background:#FFFFFF;border:1px solid rgba(10,26,43,.1)"><span role="img" aria-label="WashU Medicine" data-logo="washu" style="display:block;width:86px;height:17px"></span></span><span title="Johns Hopkins Medicine" style="display:inline-flex;align-items:center;justify-content:center;height:36px;padding:0 11px;border-radius:7px;background:#FFFFFF;border:1px solid rgba(10,26,43,.1)"><span role="img" aria-label="Johns Hopkins Medicine" data-logo="hopkins" style="display:block;width:84px;height:19px"></span></span></div>
         </div>
       </div>
     </div>
