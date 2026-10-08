@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="./support.js"></script>
 <script src="./edit.js" defer></script>
+<script src="./tl-video.js" defer></script>
 </head>
 <body>
 <x-dc>
@@ -41,6 +42,14 @@
   a { color: #7FC4E8; text-decoration: none; }
   a:hover { color: #FFFFFF; }
   img { max-width: 100%; }
+  /* Home video frame */
+  @keyframes tlvidglow { from { transform: translate(-3%,-2%) } to { transform: translate(3%,2%) } }
+  @keyframes tlvidfloat { from { transform: translateY(0) } to { transform: translateY(-14px) } }
+  @keyframes tlvidring { 0% { transform: scale(.85); opacity: .9 } 100% { transform: scale(1.35); opacity: 0 } }
+  @keyframes tlvidpulse { 0%,100% { opacity: 1 } 50% { opacity: .35 } }
+  [data-tl-video-mount]:empty { pointer-events: none; }
+  [data-tl-video][data-playing] [data-tl-video-play] { opacity: 0; pointer-events: none; }
+  @media (prefers-reduced-motion: reduce) { [data-tl-video] * { animation: none !important; } }
   /* Where we are: map on the left on wide screens; text stays first on phones. */
   @media (min-width: 720px) { [data-where-map] { order: -1; border-right: 1px solid rgba(233,236,239,.12); } }
   /* Logo wall: always full rows (5 across, 2 across on narrow screens) so no empty tiles show. */
@@ -182,6 +191,41 @@
 
       <div style="position:relative;min-width:0;display:flex;align-items:center;justify-content:center;padding:clamp(6px,2vw,28px)">
         <canvas data-gl="panels" style="width:100%;height:min(64vh,560px);display:block"></canvas>
+      </div>
+    </div>
+  </section>
+
+  <section id="video" style="position:relative;padding:clamp(70px,9vw,140px) clamp(18px,4vw,54px);background:radial-gradient(120% 80% at 50% 0%,#0F2A44 0%,#071624 62%);overflow:hidden">
+    <div style="position:relative;max-width:1120px;margin:0 auto;display:flex;flex-direction:column;gap:clamp(22px,3vw,40px)">
+      <div data-reveal style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px 40px">
+        <div style="display:flex;flex-direction:column;gap:14px;min-width:0">
+          <span data-edit="t197" style="font-size:clamp(16px,1.3vw,20px);font-weight:600;line-height:1.35;color:#7FC4E8">See it in action</span>
+          <h2 data-edit="t198" style="margin:0;font-size:clamp(28px,3.8vw,58px);font-weight:500;line-height:1.06;letter-spacing:-.045em;color:#FFFFFF;text-wrap:balance">How TissueTape works.</h2>
+        </div>
+        <span data-edit="t199" style="font-size:clamp(15px,1.25vw,19px);font-weight:400;line-height:1.62;color:#A8BDCE;max-width:420px;text-wrap:pretty">A short walkthrough of the material, from placement to resorption.</span>
+      </div>
+
+      <div data-reveal data-tl-video data-video-src="" style="position:relative;aspect-ratio:16/9;border-radius:clamp(12px,1.4vw,22px);overflow:hidden;border:1px solid rgba(127,196,232,.28);background:linear-gradient(135deg,#0B2238 0%,#0E2E4B 45%,#09192A 100%);box-shadow:0 40px 120px -40px rgba(42,127,219,.45),inset 0 0 0 1px rgba(255,255,255,.03)">
+        <div data-tl-video-glow aria-hidden="true" style="position:absolute;inset:-30%;background:radial-gradient(40% 40% at 30% 40%,rgba(42,127,219,.35),transparent 70%),radial-gradient(35% 35% at 75% 65%,rgba(127,196,232,.22),transparent 70%);animation:tlvidglow 14s ease-in-out infinite alternate;pointer-events:none"></div>
+        <svg aria-hidden="true" viewBox="0 0 313 248" fill="none" stroke-width="2.2" stroke-linejoin="round" style="position:absolute;right:5%;bottom:6%;width:34%;height:auto;opacity:.38;pointer-events:none;animation:tlvidfloat 9s ease-in-out infinite alternate">
+          <path d="M295 28L302 28L303 33L276 62L249 81L213 95L186 97L140 89L101 89L34 101L23 101L25 93L36 80L54 64L78 48L114 34L135 32L183 40L215 41L294 29Z" stroke="#5E8FB8"></path>
+          <path d="M297 89L302 90L299 99L272 126L245 144L211 157L186 159L148 152L115 150L89 152L38 162L22 163L21 160L29 148L45 132L71 113L90 103L115 95L141 94L187 102L221 102L296 90Z" stroke="#2A7FDB"></path>
+          <path d="M291 150L302 150L302 154L292 168L275 184L244 205L213 217L183 219L138 211L102 211L34 223L22 223L21 220L29 208L44 193L71 173L88 164L116 155L139 154L184 162L224 162L290 151Z" stroke="#7FC4E8"></path>
+        </svg>
+        <div aria-hidden="true" style="position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(255,255,255,.018) 0 1px,transparent 1px 3px);pointer-events:none"></div>
+        <span aria-hidden="true" style="position:absolute;width:26px;height:26px;border-color:#7FC4E8;border-style:solid;opacity:.7;top:16px;left:16px;border-width:2px 0 0 2px;border-radius:6px 0 0 0"></span>
+        <span aria-hidden="true" style="position:absolute;width:26px;height:26px;border-color:#7FC4E8;border-style:solid;opacity:.7;top:16px;right:16px;border-width:2px 2px 0 0;border-radius:0 6px 0 0"></span>
+        <span aria-hidden="true" style="position:absolute;width:26px;height:26px;border-color:#7FC4E8;border-style:solid;opacity:.7;bottom:16px;left:16px;border-width:0 0 2px 2px;border-radius:0 0 0 6px"></span>
+        <span aria-hidden="true" style="position:absolute;width:26px;height:26px;border-color:#7FC4E8;border-style:solid;opacity:.7;bottom:16px;right:16px;border-width:0 2px 2px 0;border-radius:0 0 6px 0"></span>
+        <span aria-hidden="true" style="position:absolute;top:clamp(22px,2.4vw,30px);left:clamp(52px,4.6vw,60px);display:flex;align-items:center;gap:8px;font-size:11px;font-weight:600;letter-spacing:.16em;color:#9FC6E2"><span style="width:7px;height:7px;border-radius:50%;background:#2A7FDB;box-shadow:0 0 0 4px rgba(42,127,219,.18);animation:tlvidpulse 2.4s ease-in-out infinite"></span>TISSUELOCK · TECHNOLOGY</span>
+
+        <button type="button" data-tl-video-play aria-label="Play video" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:clamp(68px,7vw,104px);height:clamp(68px,7vw,104px);border-radius:50%;border:1px solid rgba(233,236,239,.45);background:rgba(10,26,43,.35);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0;transition:transform .5s cubic-bezier(.16,.84,.3,1),background .4s" style-hover="background:rgba(42,127,219,.55);transform:translate(-50%,-50%) scale(1.06)">
+          <span aria-hidden="true" style="position:absolute;inset:-14px;border-radius:50%;border:1px solid rgba(127,196,232,.4);animation:tlvidring 2.8s cubic-bezier(.2,.6,.3,1) infinite"></span>
+          <svg aria-hidden="true" viewBox="0 0 24 24" style="width:34%;height:auto;margin-left:6%;display:block"><path d="M7 4.8v14.4a1 1 0 0 0 1.53.85l11.4-7.2a1 1 0 0 0 0-1.7L8.53 3.95A1 1 0 0 0 7 4.8Z" fill="#FFFFFF"></path></svg>
+        </button>
+
+        <span data-edit="t200" style="position:absolute;left:clamp(52px,4.6vw,60px);bottom:clamp(22px,2.4vw,30px);font-size:13px;font-weight:500;letter-spacing:.02em;color:#9FB4C6">Video coming soon</span>
+        <div data-tl-video-mount style="position:absolute;inset:0"></div>
       </div>
     </div>
   </section>
