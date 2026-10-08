@@ -4,6 +4,7 @@
  *   - a file in this repo, e.g. "assets/video/tissuetape.mp4"
  *   - a YouTube link, e.g. "https://www.youtube.com/watch?v=XXXX" or "https://youtu.be/XXXX"
  *   - a Vimeo link, e.g. "https://vimeo.com/123456789"
+ *   - a Google Drive share link (file shared as "anyone with the link")
  * Leave it empty to show the "coming soon" frame.
  */
 (function () {
@@ -12,6 +13,8 @@
   function embedUrl(src) {
     var m = src.match(/(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([\w-]{6,})/);
     if (m) return 'https://www.youtube-nocookie.com/embed/' + m[1] + '?autoplay=1&rel=0&modestbranding=1&playsinline=1';
+    m = src.match(/drive\.google\.com\/(?:file\/d\/|open\?id=)([\w-]{10,})/);
+    if (m) return 'https://drive.google.com/file/d/' + m[1] + '/preview';
     m = src.match(/vimeo\.com\/(?:video\/)?(\d+)/);
     if (m) return 'https://player.vimeo.com/video/' + m[1] + '?autoplay=1&title=0&byline=0&portrait=0&color=7FC4E8';
     return null;
