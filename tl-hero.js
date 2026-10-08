@@ -1,7 +1,7 @@
 /*
  * Tissuelock hero — "closing the gap" (realistic cutaway).
  * Skin, fat, fascia and muscle in cross-section. A seroma-filled dead space opens under the
- * flap, the three-layer TissueTape slides in, the flap settles onto it, and the seam bonds.
+ * flap, the three-layer Tissuelock slides in, the flap settles onto it, and the seam bonds.
  * Usage: TLHero.mount(element)
  */
 (function () {
@@ -13,7 +13,7 @@
   function rng(seed) { var s = seed; return function () { s = (s * 16807) % 2147483647; return (s - 1) / 2147483646; }; }
 
   // Story: intact tissue -> scalpel dissects the plane -> flap lifts, seroma fills the dead space
-  // -> TissueTape slides in -> flap closes onto it -> bond glows -> hold -> fade and repeat.
+  // -> Tissuelock slides in -> flap closes onto it -> bond glows -> hold -> fade and repeat.
   var T = { intact: .9, cut: 2.3, exit: .6, lift: 1.5, pool: .7, slide: 1.9, close: 1.8, glow: 1.1, hold: 2.6, fade: .9 };
   var LOOP = 0; for (var k in T) LOOP += T[k];
   function phase(t) {
@@ -38,32 +38,91 @@
     u = seg('fade'); P.alpha = 1 - smooth(u < 0 ? 1 : u); return P;
   }
 
-  // Scalpel, tip at the origin pointing +x
-  function drawScalpel(g, L, b) {
-    // handle
-    var hg = g.createLinearGradient(0, -b * .2, 0, b * .2);
-    hg.addColorStop(0, '#dfe5ea'); hg.addColorStop(.45, '#9aa4ad'); hg.addColorStop(1, '#5d6670');
-    g.fillStyle = hg;
+  // Scalpel: #4 stainless handle with a #10 carbon-steel blade. Tip at the origin, pointing +x,
+  // cutting edge facing down. L = overall length.
+  function drawScalpel(g, L) {
+    var bl = L * .3, bh = L * .085, hb = L * .072, nk = L * .04;
+    var hx0 = -bl * .78, neckEnd = -bl * 1.12, bodyStart = -bl * 1.32, end = -L;
+
+    // ---- handle silhouette
+    g.save();
     g.beginPath();
-    g.moveTo(-L * .36, -b * .16); g.lineTo(-L * .97, -b * .2);
-    g.quadraticCurveTo(-L * 1.02, 0, -L * .97, b * .2); g.lineTo(-L * .36, b * .16); g.closePath(); g.fill();
-    g.strokeStyle = 'rgba(40,48,56,.35)'; g.lineWidth = .8;
-    for (var i = 0; i < 9; i++) { var gx = -L * (.55 + i * .035); g.beginPath(); g.moveTo(gx, -b * .17); g.lineTo(gx, b * .17); g.stroke(); }
-    // blade (#10 style: straight spine, curved belly)
-    var bg = g.createLinearGradient(0, -b * .5, 0, b * .5);
-    bg.addColorStop(0, '#f4f7f9'); bg.addColorStop(.5, '#c4ccd3'); bg.addColorStop(1, '#8c959e');
-    g.fillStyle = bg;
+    g.moveTo(hx0, -nk / 2);
+    g.lineTo(neckEnd, -nk / 2);
+    g.bezierCurveTo(neckEnd - bl * .08, -nk / 2, bodyStart + bl * .06, -hb / 2, bodyStart, -hb / 2);
+    g.lineTo(end + hb * .5, -hb * .46);
+    g.quadraticCurveTo(end, -hb * .44, end, 0);
+    g.quadraticCurveTo(end, hb * .44, end + hb * .5, hb * .46);
+    g.lineTo(bodyStart, hb / 2);
+    g.bezierCurveTo(bodyStart + bl * .06, hb / 2, neckEnd - bl * .08, nk / 2, neckEnd, nk / 2);
+    g.lineTo(hx0, nk / 2);
+    g.closePath();
+    var hg = g.createLinearGradient(0, -hb / 2, 0, hb / 2);
+    hg.addColorStop(0, '#f7f9fb'); hg.addColorStop(.18, '#d9dfe4'); hg.addColorStop(.5, '#a7b0b8');
+    hg.addColorStop(.78, '#7c868f'); hg.addColorStop(1, '#5a636c');
+    g.fillStyle = hg; g.fill();
+    g.strokeStyle = 'rgba(45,52,60,.55)'; g.lineWidth = .8; g.stroke();
+    g.clip();
+    // brushed-steel streaks
+    g.globalAlpha = .18; g.strokeStyle = '#ffffff'; g.lineWidth = .5;
+    for (var i = 0; i < 9; i++) { var yy = -hb / 2 + hb * (i + .5) / 9; g.beginPath(); g.moveTo(end, yy); g.lineTo(hx0, yy + (i % 2 ? .3 : -.3)); g.stroke(); }
+    g.globalAlpha = 1;
+    // knurled grip
+    var k0 = -L * .44, k1 = -L * .72;
+    g.save(); g.beginPath(); g.rect(k1, -hb * .36, k0 - k1, hb * .72); g.clip();
+    g.fillStyle = 'rgba(70,78,86,.35)'; g.fillRect(k1, -hb, k0 - k1, hb * 2);
+    g.strokeStyle = 'rgba(235,240,244,.55)'; g.lineWidth = .7;
+    for (var x = k1 - hb; x < k0 + hb; x += hb * .22) {
+      g.beginPath(); g.moveTo(x, -hb / 2); g.lineTo(x + hb, hb / 2); g.stroke();
+      g.beginPath(); g.moveTo(x + hb, -hb / 2); g.lineTo(x, hb / 2); g.stroke();
+    }
+    g.restore();
+    g.strokeStyle = 'rgba(40,46,52,.45)'; g.lineWidth = .8;
+    g.beginPath(); g.moveTo(k0, -hb * .36); g.lineTo(k0, hb * .36); g.moveTo(k1, -hb * .36); g.lineTo(k1, hb * .36); g.stroke();
+    // specular highlight along the top bevel
+    var sg = g.createLinearGradient(end, 0, hx0, 0);
+    sg.addColorStop(0, 'rgba(255,255,255,0)'); sg.addColorStop(.35, 'rgba(255,255,255,.85)'); sg.addColorStop(.8, 'rgba(255,255,255,.35)'); sg.addColorStop(1, 'rgba(255,255,255,0)');
+    g.fillStyle = sg; g.fillRect(end, -hb * .42, hx0 - end, hb * .1);
+    g.restore();
+
+    // ---- blade
+    g.save();
     g.beginPath();
-    g.moveTo(0, 0);
-    g.lineTo(-L * .2, -b * .42);
-    g.lineTo(-L * .36, -b * .3);
-    g.lineTo(-L * .36, b * .3);
-    g.quadraticCurveTo(-L * .16, b * .62, 0, 0);
-    g.closePath(); g.fill();
-    g.strokeStyle = 'rgba(255,255,255,.85)'; g.lineWidth = .9;
-    g.beginPath(); g.moveTo(-1, .5); g.quadraticCurveTo(-L * .16, b * .58, -L * .34, b * .3); g.stroke();
-    g.strokeStyle = 'rgba(60,70,80,.5)'; g.lineWidth = .8;
-    g.beginPath(); g.moveTo(-L * .3, -b * .12); g.lineTo(-L * .22, -b * .06); g.stroke();
+    g.moveTo(0, -bh * .04);
+    g.lineTo(-bl * .26, -bh * .36);
+    g.lineTo(-bl, -bh * .36);
+    g.lineTo(-bl, bh * .38);
+    g.lineTo(-bl * .74, bh * .54);
+    g.bezierCurveTo(-bl * .42, bh * .72, -bl * .06, bh * .5, 0, -bh * .04);
+    g.closePath();
+    var bg = g.createLinearGradient(0, -bh * .4, 0, bh * .6);
+    bg.addColorStop(0, '#eef3f7'); bg.addColorStop(.35, '#c3ccd5'); bg.addColorStop(.75, '#8e99a4'); bg.addColorStop(1, '#6d7883');
+    g.fillStyle = bg; g.fill();
+    g.strokeStyle = 'rgba(40,48,58,.6)'; g.lineWidth = .7; g.stroke();
+    g.clip();
+    // honed cutting-edge bevel
+    g.beginPath();
+    g.moveTo(-bl * .74, bh * .54);
+    g.bezierCurveTo(-bl * .42, bh * .72, -bl * .06, bh * .5, 0, -bh * .04);
+    g.bezierCurveTo(-bl * .08, bh * .3, -bl * .42, bh * .44, -bl * .74, bh * .32);
+    g.closePath();
+    var eg = g.createLinearGradient(0, bh * .2, 0, bh * .7);
+    eg.addColorStop(0, 'rgba(255,255,255,.15)'); eg.addColorStop(1, 'rgba(255,255,255,.95)');
+    g.fillStyle = eg; g.fill();
+    // spine highlight
+    g.strokeStyle = 'rgba(255,255,255,.9)'; g.lineWidth = 1;
+    g.beginPath(); g.moveTo(-bl * .27, -bh * .32); g.lineTo(-bl * .97, -bh * .32); g.stroke();
+    g.restore();
+    // mounting slot with the handle's bayonet showing through
+    var sx0 = -bl * .9, sx1 = -bl * .5, sh = bh * .17;
+    g.beginPath();
+    g.moveTo(sx0 + sh, -sh); g.lineTo(sx1 - sh * .6, -sh); g.arc(sx1 - sh * .6, 0, sh, -Math.PI / 2, Math.PI / 2); g.lineTo(sx0 + sh, sh); g.arc(sx0 + sh, 0, sh, Math.PI / 2, Math.PI * 1.5); g.closePath();
+    var slg = g.createLinearGradient(0, -sh, 0, sh); slg.addColorStop(0, '#5b646d'); slg.addColorStop(1, '#a3adb6');
+    g.fillStyle = slg; g.fill();
+    g.strokeStyle = 'rgba(30,36,42,.6)'; g.lineWidth = .6; g.stroke();
+    // tiny engraved blade number
+    g.fillStyle = 'rgba(60,68,78,.55)'; g.font = '600 ' + Math.max(6, bh * .2) + 'px system-ui, sans-serif';
+    g.textBaseline = 'middle'; g.fillText('10', -bl * .42, -bh * .14);
   }
 
   /* ---------- textures (built once per size) ---------- */
@@ -175,7 +234,7 @@
     host.__tlHero = true;
     var cv = document.createElement('canvas');
     cv.setAttribute('role', 'img');
-    cv.setAttribute('aria-label', 'Animation: TissueTape closes the dead space between tissue layers');
+    cv.setAttribute('aria-label', 'Animation: Tissuelock closes the dead space between tissue layers');
     cv.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;display:block';
     if (getComputedStyle(host).position === 'static') host.style.position = 'relative';
     host.appendChild(cv);
@@ -261,7 +320,7 @@
         ctx.restore();
       }
 
-      // TissueTape: three translucent offset films
+      // Tissuelock: three translucent offset films
       if (P.tape > 0 && P.tapeA > 0) {
         var films = [['176,208,232', .78], ['120,170,220', .72], ['210,232,246', .82]], lt = G.tapeT / 3;
         for (var L = 0; L < 3; L++) {
@@ -363,7 +422,7 @@
         label('MUSCLE', lx, fTop + G.fascia + G.muscle * .35, .8);
       }
       label('DEAD SPACE', cx, (flapBottom(cx) + fTop) / 2, smooth((P.gap - .35) / .5) * (1 - P.tape * .4), 'center');
-      // TissueTape callout: leader line from the tape up above the skin
+      // Tissuelock callout: leader line from the tape up above the skin
       var la = P.gap < .05 ? smooth((P.tape - .8) / .2) * P.tapeA : 0;
       if (la > .01) {
         var ex = tx0 + tapeLen * .78, ey = fTop - G.tapeT * .5, ty = flapBottom(ex) - FH - unit * .09;
@@ -372,7 +431,7 @@
         ctx.beginPath(); ctx.moveTo(ex, ey); ctx.lineTo(ex, ty); ctx.lineTo(ex + unit * .05, ty); ctx.stroke();
         ctx.fillStyle = '#D6ECFA'; ctx.beginPath(); ctx.arc(ex, ey, 2.6, 0, 6.283); ctx.fill();
         ctx.restore();
-        label('TISSUETAPE', ex + unit * .06, ty, la);
+        label('TISSUELOCK', ex + unit * .06, ty, la);
       }
 
       // scalpel
@@ -380,7 +439,7 @@
         ctx.save(); ctx.globalAlpha = P.knifeA;
         ctx.translate(tipX, fTop - 1.5); ctx.rotate(.085);
         ctx.shadowColor = 'rgba(0,0,0,.45)'; ctx.shadowBlur = 10; ctx.shadowOffsetY = 4;
-        drawScalpel(ctx, unit * .62, unit * .075);
+        drawScalpel(ctx, unit * .78);
         ctx.restore();
       }
 
@@ -388,7 +447,7 @@
       var nowS = performance.now() / 1000;
       if (P.step !== capStep) { capPrev = capStep; capStep = P.step; capT = nowS; }
       var capA = smooth((nowS - capT) / .5);
-      var caps = { 1: 'Surgery creates dead space', 2: 'TissueTape is placed', 3: 'Tissue planes bond. No drain.' };
+      var caps = { 1: 'Surgery creates dead space', 2: 'Tissuelock is placed', 3: 'Tissue planes bond. No drain.' };
       var cy = fTop - FH - unit * .075, capX = x0 + span * .12;
       if (caps[capStep] && !reduced) {
         ctx.save(); ctx.globalAlpha = capA;
