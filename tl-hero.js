@@ -454,8 +454,7 @@
         ctx.font = '600 ' + clamp(W * .012, 11, 14) + 'px "Schibsted Grotesk", system-ui, sans-serif';
         ctx.textBaseline = 'middle';
         if (ctx.letterSpacing !== undefined) ctx.letterSpacing = '0.02em';
-        ctx.fillStyle = '#7FC4E8'; ctx.fillText('0' + capStep, capX, cy);
-        ctx.fillStyle = 'rgba(255,255,255,.92)'; ctx.fillText(caps[capStep], capX + clamp(W * .012, 11, 14) * 2.2, cy);
+        ctx.fillStyle = 'rgba(255,255,255,.92)'; ctx.fillText(caps[capStep], capX, cy);
         ctx.restore();
       }
 
