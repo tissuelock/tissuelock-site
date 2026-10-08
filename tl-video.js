@@ -25,6 +25,13 @@
     if (!src || frame.hasAttribute('data-playing')) return;
     var mount = frame.querySelector('[data-tl-video-mount]');
     if (!mount) return;
+    // Phones: Drive's embedded player is cramped (controls on top, no fullscreen on iOS),
+    // so open Drive's own player instead.
+    var drive = src.match(/drive\.google\.com\/(?:file\/d\/|open\?id=)([\w-]{10,})/);
+    if (drive && window.matchMedia('(max-width: 820px), (pointer: coarse)').matches) {
+      window.open('https://drive.google.com/file/d/' + drive[1] + '/view', '_blank', 'noopener');
+      return;
+    }
     var url = embedUrl(src), el;
     if (url) {
       el = document.createElement('iframe');
