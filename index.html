@@ -7,6 +7,7 @@
 <script src="./edit.js?v=3" defer></script>
 <script src="./tl-video.js?v=2" defer></script>
 <script src="./tl-hero.js?v=6" defer></script>
+<script src="./tl-reveal.js?v=2" defer></script>
 </head>
 <body>
 <x-dc>
@@ -43,6 +44,12 @@
   a { color: #7FC4E8; text-decoration: none; }
   a:hover { color: #FFFFFF; }
   img { max-width: 100%; }
+  /* About photos: wipe up + settle as they scroll into view */
+  [data-photo-reveal] { clip-path: inset(100% 0 0 0); transition: clip-path 1.25s cubic-bezier(.77,0,.18,1); }
+  [data-photo-reveal] img { transform: scale(1.18); transition: transform 1.8s cubic-bezier(.16,.84,.3,1); }
+  [data-photo-reveal][data-in] { clip-path: inset(0 0 0 0); }
+  [data-photo-reveal][data-in] img { transform: scale(1); }
+  @media (prefers-reduced-motion: reduce) { [data-photo-reveal], [data-photo-reveal] img { clip-path: none; transform: none; transition: none; } }
   /* Team institution logos drawn in brand colour from the white logo files */
   [data-logo] { -webkit-mask: var(--m) center / contain no-repeat; mask: var(--m) center / contain no-repeat; }
   [data-logo="washu"] { --m: url(assets/logos/w/washu.png); background: #A51417; }
@@ -501,13 +508,13 @@
   <section style="padding:0 clamp(18px,4vw,54px) clamp(70px,9vw,140px);background:#E9ECEF">
     <h2 data-edit="t201" data-reveal style="max-width:1500px;margin:0 auto clamp(24px,3.4vw,48px);font-size:clamp(28px,4.2vw,68px);font-weight:500;line-height:1.04;letter-spacing:-.045em;color:#0A1A2B;text-wrap:balance">Where we work</h2>
     <div style="max-width:1500px;margin:0 auto;display:grid;gap:clamp(14px,1.8vw,26px);grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr))">
-      <div data-reveal data-delay="0" style="position:relative;overflow:hidden;aspect-ratio:4/3;background:#D3D8DD">
+      <div data-photo-reveal data-delay="0" style="position:relative;overflow:hidden;aspect-ratio:4/3;background:#D3D8DD">
         <img data-par="20" src="assets/place/cortex-interior.png" alt="Cortex Innovation District laboratory interior" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;will-change:transform">
       </div>
-      <div data-reveal data-delay="90" style="position:relative;overflow:hidden;aspect-ratio:4/3;background:#D3D8DD">
+      <div data-photo-reveal data-delay="90" style="position:relative;overflow:hidden;aspect-ratio:4/3;background:#D3D8DD">
         <img data-par="28" src="assets/place/biostl-building.png" alt="BioSTL building, St. Louis" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;will-change:transform">
       </div>
-      <div data-reveal data-delay="180" style="position:relative;overflow:hidden;aspect-ratio:4/3;background:#D3D8DD">
+      <div data-photo-reveal data-delay="180" style="position:relative;overflow:hidden;aspect-ratio:4/3;background:#D3D8DD">
         <img data-par="24" src="assets/place/washu-campus.png" alt="Washington University Medical Campus" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;will-change:transform">
       </div>
     </div>
