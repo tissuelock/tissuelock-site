@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /Tissuelock%20(offline).html
+Disallow: /Tissuelock-standalone.dc.html
+Disallow: /Tissuelock%20website%20feedback.pdf
+Disallow: /snippets/
+Disallow: /uploads/
+
+Sitemap: https://tissuelock.com/sitemap.xml
