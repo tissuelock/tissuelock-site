@@ -448,7 +448,7 @@
       if (P.step !== capStep) { capPrev = capStep; capStep = P.step; capT = nowS; }
       var capA = smooth((nowS - capT) / .5);
       var caps = { 1: 'Surgery creates dead space', 2: 'Tissuelock is placed', 3: 'Tissue planes bond. No drain.' };
-      var cy = fTop - FH - unit * .075, capX = x0 + span * .12;
+      var cy = Math.max(14, fTop - FH - G.lift - unit * .05), capX = x0 + span * .12;
       if (caps[capStep] && !reduced) {
         ctx.save(); ctx.globalAlpha = capA;
         ctx.font = '600 ' + clamp(W * .012, 11, 14) + 'px "Schibsted Grotesk", system-ui, sans-serif';
@@ -475,8 +475,8 @@
 
   window.TLHero = { mount: mount };
 
-  // Auto-mount into the homepage hero frame (re-mounts when you navigate back to Home).
-  function scan() { var el = document.querySelector('[data-hero-art]'); if (el && !el.__tlHero) mount(el); }
+  // Auto-mount into the homepage animation panel (re-mounts when you navigate back to Home).
+  function scan() { var el = document.querySelector('[data-tl-anim]'); if (el && !el.__tlHero) mount(el); }
   if (document.readyState !== 'loading') scan(); else document.addEventListener('DOMContentLoaded', scan);
   new MutationObserver(scan).observe(document.documentElement, { childList: true, subtree: true });
 })();

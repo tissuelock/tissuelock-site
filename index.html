@@ -6,7 +6,7 @@
 <script src="./support.js"></script>
 <script src="./edit.js?v=3" defer></script>
 <script src="./tl-video.js?v=2" defer></script>
-<script src="./tl-hero.js?v=5" defer></script>
+<script src="./tl-hero.js?v=6" defer></script>
 </head>
 <body>
 <x-dc>
@@ -139,9 +139,9 @@
 <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
 <main data-screen-label="Home">
 
-  <section data-hero style="position:relative;min-height:100svh;display:grid;grid-template-rows:minmax(0,1fr) auto auto;gap:clamp(14px,2.4vh,40px);overflow:hidden;background:linear-gradient(180deg,#071624 0%,#0A1A2B 62%,#0E2337 100%);padding:clamp(84px,11vh,104px) clamp(18px,4vw,54px) clamp(20px,3vh,44px)">
+  <section data-hero style="position:relative;min-height:86svh;display:grid;grid-template-rows:minmax(0,1fr) auto auto;gap:clamp(14px,2.4vh,40px);overflow:hidden;background:linear-gradient(180deg,#071624 0%,#0A1A2B 62%,#0E2337 100%);padding:clamp(84px,11vh,104px) clamp(18px,4vw,54px) clamp(20px,3vh,44px)">
     <div style="position:relative;display:flex;align-items:center;justify-content:center;min-height:0;overflow:hidden">
-      <div data-hero-art style="position:relative;width:min(96vw,1040px);height:100%;min-height:120px;will-change:transform"></div>
+      <div data-hero-art style="position:relative;width:min(96vw,1040px);height:100%;min-height:0;will-change:transform"></div>
     </div>
 
     <div style="position:relative;width:100%;max-width:1500px;margin:0 auto;display:grid;gap:clamp(26px,4vw,72px);grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));align-items:flex-end">
@@ -161,6 +161,10 @@
       </div>
       <span data-edit="t25" data-word style="font-size:clamp(13px,1.2vw,16px);font-weight:400;line-height:1.5;color:#8EA6BA;text-align:right;max-width:330px"></span>
     </div>
+  </section>
+
+  <section data-anim-panel style="position:relative;padding:clamp(24px,4vw,64px) clamp(18px,4vw,54px) clamp(40px,6vw,90px);background:#0E2337;overflow:hidden">
+    <div data-tl-anim style="position:relative;width:min(100%,1080px);height:clamp(300px,40vw,540px);margin:0 auto"></div>
   </section>
 
   <section style="position:relative;padding:clamp(80px,11vw,170px) clamp(18px,4vw,54px);background:#0E2337;overflow:hidden">
