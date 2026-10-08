@@ -44,6 +44,21 @@
   a { color: #7FC4E8; text-decoration: none; }
   a:hover { color: #FFFFFF; }
   img { max-width: 100%; }
+[data-sem] [data-sem-ov]{position:absolute;inset:0;pointer-events:none;display:flex;align-items:center;justify-content:center;background:radial-gradient(ellipse at center,rgba(7,22,36,.0) 0%,rgba(7,22,36,.0) 100%);transition:background .7s cubic-bezier(.16,.84,.3,1)}
+[data-sem] [data-sem-c]{position:absolute;inset:clamp(14px,2vw,26px);opacity:0;transition:opacity .5s,inset .7s cubic-bezier(.16,.84,.3,1);background:linear-gradient(#fff,#fff) 0 0/22px 1.5px,linear-gradient(#fff,#fff) 0 0/1.5px 22px,linear-gradient(#fff,#fff) 100% 0/22px 1.5px,linear-gradient(#fff,#fff) 100% 0/1.5px 22px,linear-gradient(#fff,#fff) 0 100%/22px 1.5px,linear-gradient(#fff,#fff) 0 100%/1.5px 22px,linear-gradient(#fff,#fff) 100% 100%/22px 1.5px,linear-gradient(#fff,#fff) 100% 100%/1.5px 22px;background-repeat:no-repeat}
+[data-sem] [data-sem-scan]{position:absolute;left:0;right:0;top:-12%;height:12%;opacity:0;background:linear-gradient(180deg,rgba(127,196,232,0),rgba(127,196,232,.35) 85%,rgba(233,244,251,.95) 100%);box-shadow:0 1px 14px rgba(127,196,232,.7)}
+[data-sem] [data-sem-word]{display:flex;align-items:center;gap:clamp(10px,1vw,16px);color:#fff;opacity:0;transform:translateY(10px);letter-spacing:.5em;filter:blur(6px);transition:opacity .6s .25s,transform .8s .25s cubic-bezier(.16,.84,.3,1),letter-spacing 1s .25s cubic-bezier(.16,.84,.3,1),filter .7s .25s}
+[data-sem] [data-sem-word] img{height:clamp(26px,2.6vw,40px);width:auto;filter:brightness(0) invert(1)}
+[data-sem] [data-sem-word] b{font-size:clamp(30px,3.4vw,54px);font-weight:600;letter-spacing:inherit;text-shadow:0 2px 24px rgba(7,22,36,.45)}
+[data-sem] > img{transition:scale 1.4s cubic-bezier(.16,.84,.3,1),filter 1s}
+[data-sem]:hover > img,[data-sem]:focus > img{scale:1.06;filter:contrast(1.08) brightness(.82)}
+[data-sem]:hover [data-sem-ov],[data-sem]:focus [data-sem-ov]{background:radial-gradient(ellipse at center,rgba(7,22,36,.55) 0%,rgba(7,22,36,.25) 70%)}
+[data-sem]:hover [data-sem-c],[data-sem]:focus [data-sem-c]{opacity:.85;inset:clamp(20px,2.8vw,38px)}
+[data-sem]:hover [data-sem-scan],[data-sem]:focus [data-sem-scan]{animation:tlsemscan 1.1s cubic-bezier(.5,0,.3,1) forwards}
+[data-sem]:hover [data-sem-word],[data-sem]:focus [data-sem-word]{opacity:1;transform:none;letter-spacing:-.02em;filter:blur(0)}
+@keyframes tlsemscan{0%{top:-12%;opacity:1}85%{opacity:1}100%{top:100%;opacity:0}}
+@media (prefers-reduced-motion:reduce){[data-sem] *{transition:none !important;animation:none !important}}
+
 [data-menu-contact]{} @media (max-width:640px){[data-menu-contact]{margin-top:clamp(28px,5vh,52px);padding-top:26px;border-left:0 !important;padding-left:0 !important;border-top:1px solid rgba(10,26,43,.15)}}
 
   /* About photos: wipe up + settle as they scroll into view */
@@ -394,8 +409,9 @@
       </div>
 
       <div data-reveal style="position:relative;overflow:hidden;min-width:0">
-        <div style="position:relative;aspect-ratio:4/5;overflow:hidden;background:#C9CCCF">
+        <div data-sem tabindex="0" style="position:relative;aspect-ratio:4/5;overflow:hidden;background:#C9CCCF;cursor:crosshair;outline:none">
           <img data-par="26" src="assets/place/tissuelock-material.jpg" alt="Close-up of Tissuelock material" style="position:absolute;inset:-6%;width:112%;height:112%;object-fit:cover;will-change:transform">
+          <div data-sem-ov aria-hidden="true"><i data-sem-scan></i><span data-sem-c></span><div data-sem-word><img src="assets/logo-mark-dark-clean.png" alt=""><b>Tissuelock</b></div></div>
         </div>
       </div>
     </div>
