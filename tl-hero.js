@@ -12,16 +12,58 @@
   function smooth(t) { t = clamp(t, 0, 1); return t * t * (3 - 2 * t); }
   function rng(seed) { var s = seed; return function () { s = (s * 16807) % 2147483647; return (s - 1) / 2147483646; }; }
 
-  var T = { open: 1.4, slide: 1.9, close: 1.8, glow: 1.1, hold: 3.2, reopen: 1.8 };
-  var LOOP = T.open + T.slide + T.close + T.glow + T.hold + T.reopen;
+  // Story: intact tissue -> scalpel dissects the plane -> flap lifts, seroma fills the dead space
+  // -> TissueTape slides in -> flap closes onto it -> bond glows -> hold -> fade and repeat.
+  var T = { intact: .9, cut: 2.3, exit: .6, lift: 1.5, pool: .7, slide: 1.9, close: 1.8, glow: 1.1, hold: 2.6, fade: .9 };
+  var LOOP = 0; for (var k in T) LOOP += T[k];
   function phase(t) {
-    var a = T.open, b = a + T.slide, c = b + T.close, d = c + T.glow, e = d + T.hold;
-    if (t < a) return { gap: 1, tape: 0, glow: 0, tapeA: 1 };
-    if (t < b) return { gap: 1, tape: ease((t - a) / T.slide), glow: 0, tapeA: 1 };
-    if (t < c) return { gap: 1 - ease((t - b) / T.close), tape: 1, glow: 0, tapeA: 1 };
-    if (t < d) return { gap: 0, tape: 1, glow: Math.sin(Math.PI * (t - c) / T.glow), tapeA: 1 };
-    if (t < e) return { gap: 0, tape: 1, glow: 0, tapeA: 1 };
-    var r = ease((t - e) / T.reopen); return { gap: r, tape: 1, glow: 0, tapeA: 1 - r };
+    var P = { gap: 0, tape: 0, glow: 0, tapeA: 1, cut: 0, knife: 0, knifeA: 0, alpha: 1, step: 0 };
+    var acc = 0;
+    function seg(n) { var s0 = acc; acc += T[n]; return t < acc ? (t - s0) / T[n] : -1; }
+    var u;
+    P.alpha = smooth(t / .5);
+    if ((u = seg('intact')) >= 0) { P.knifeA = smooth(u * 2); P.knife = 0; P.step = 1; return P; }
+    if ((u = seg('cut')) >= 0) { P.knifeA = 1; P.knife = ease(u); P.cut = P.knife; P.step = 1; return P; }
+    P.cut = 1;
+    if ((u = seg('exit')) >= 0) { P.knife = 1 - ease(u) * .25; P.knifeA = 1 - smooth(u); P.gap = .08 * u; P.step = 1; return P; }
+    if ((u = seg('lift')) >= 0) { P.gap = .08 + .92 * ease(u); P.step = 1; return P; }
+    P.gap = 1;
+    if ((u = seg('pool')) >= 0) { P.step = 1; return P; }
+    if ((u = seg('slide')) >= 0) { P.tape = ease(u); P.step = 2; return P; }
+    P.tape = 1;
+    if ((u = seg('close')) >= 0) { P.gap = 1 - ease(u); P.step = 3; return P; }
+    P.gap = 0; P.step = 3;
+    if ((u = seg('glow')) >= 0) { P.glow = Math.sin(Math.PI * u); return P; }
+    if ((u = seg('hold')) >= 0) return P;
+    u = seg('fade'); P.alpha = 1 - smooth(u < 0 ? 1 : u); return P;
+  }
+
+  // Scalpel, tip at the origin pointing +x
+  function drawScalpel(g, L, b) {
+    // handle
+    var hg = g.createLinearGradient(0, -b * .2, 0, b * .2);
+    hg.addColorStop(0, '#dfe5ea'); hg.addColorStop(.45, '#9aa4ad'); hg.addColorStop(1, '#5d6670');
+    g.fillStyle = hg;
+    g.beginPath();
+    g.moveTo(-L * .36, -b * .16); g.lineTo(-L * .97, -b * .2);
+    g.quadraticCurveTo(-L * 1.02, 0, -L * .97, b * .2); g.lineTo(-L * .36, b * .16); g.closePath(); g.fill();
+    g.strokeStyle = 'rgba(40,48,56,.35)'; g.lineWidth = .8;
+    for (var i = 0; i < 9; i++) { var gx = -L * (.55 + i * .035); g.beginPath(); g.moveTo(gx, -b * .17); g.lineTo(gx, b * .17); g.stroke(); }
+    // blade (#10 style: straight spine, curved belly)
+    var bg = g.createLinearGradient(0, -b * .5, 0, b * .5);
+    bg.addColorStop(0, '#f4f7f9'); bg.addColorStop(.5, '#c4ccd3'); bg.addColorStop(1, '#8c959e');
+    g.fillStyle = bg;
+    g.beginPath();
+    g.moveTo(0, 0);
+    g.lineTo(-L * .2, -b * .42);
+    g.lineTo(-L * .36, -b * .3);
+    g.lineTo(-L * .36, b * .3);
+    g.quadraticCurveTo(-L * .16, b * .62, 0, 0);
+    g.closePath(); g.fill();
+    g.strokeStyle = 'rgba(255,255,255,.85)'; g.lineWidth = .9;
+    g.beginPath(); g.moveTo(-1, .5); g.quadraticCurveTo(-L * .16, b * .58, -L * .34, b * .3); g.stroke();
+    g.strokeStyle = 'rgba(60,70,80,.5)'; g.lineWidth = .8;
+    g.beginPath(); g.moveTo(-L * .3, -b * .12); g.lineTo(-L * .22, -b * .06); g.stroke();
   }
 
   /* ---------- textures (built once per size) ---------- */
@@ -172,7 +214,7 @@
 
     function draw(t) {
       if (!G) return;
-      var P = reduced ? { gap: 0, tape: 1, glow: 0, tapeA: 1 } : phase(t % LOOP);
+      var P = reduced ? { gap: 0, tape: 1, glow: 0, tapeA: 1, cut: 1, knife: 0, knifeA: 0, alpha: 1, step: 3 } : phase(t % LOOP);
       ptr.x += (ptr.tx - ptr.x) * .05; ptr.y += (ptr.ty - ptr.y) * .05;
       ctx.clearRect(0, 0, W, H);
       var x0 = G.x0, span = G.span, unit = G.unit, x, y;
@@ -258,6 +300,26 @@
         ctx.fillStyle = sh; ctx.fillRect(cx - span * .3, fTop - 10, span * .6, 16); ctx.restore();
       }
 
+      // dissection line opened by the scalpel
+      var cutStart = cx - span * .36, cutEnd = cx + span * .36;
+      var tipX = cutStart - span * .03 + (cutEnd - cutStart + span * .03) * P.knife;
+      if (P.cut > 0 && P.gap < .6) {
+        var ce = Math.min(tipX, cutEnd), ca = 1 - P.gap / .6;
+        if (ce > cutStart) {
+          ctx.save(); ctx.globalAlpha = ca;
+          ctx.strokeStyle = 'rgba(110,16,22,.95)'; ctx.lineWidth = 2.2;
+          ctx.beginPath(); ctx.moveTo(cutStart, flapBottom(cutStart) + .5);
+          for (x = cutStart; x <= ce; x += 4) ctx.lineTo(x, flapBottom(x) + .5);
+          ctx.stroke();
+          ctx.fillStyle = 'rgba(150,20,28,.85)';
+          for (i = 0; i < 14; i++) {
+            var bx = cutStart + (ce - cutStart) * ((i * 0.618) % 1);
+            ctx.beginPath(); ctx.arc(bx, flapBottom(bx) + 1.5, 1 + (i % 3) * .5, 0, 6.283); ctx.fill();
+          }
+          ctx.restore();
+        }
+      }
+
       // bond line
       if (P.gap === 0 && P.tapeA === 1) {
         var gA = .25 + .75 * P.glow;
@@ -312,8 +374,39 @@
         ctx.restore();
         label('TISSUETAPE', ex + unit * .06, ty, la);
       }
+
+      // scalpel
+      if (P.knifeA > .01) {
+        ctx.save(); ctx.globalAlpha = P.knifeA;
+        ctx.translate(tipX, fTop - 1.5); ctx.rotate(.085);
+        ctx.shadowColor = 'rgba(0,0,0,.45)'; ctx.shadowBlur = 10; ctx.shadowOffsetY = 4;
+        drawScalpel(ctx, unit * .62, unit * .075);
+        ctx.restore();
+      }
+
+      // step caption
+      var nowS = performance.now() / 1000;
+      if (P.step !== capStep) { capPrev = capStep; capStep = P.step; capT = nowS; }
+      var capA = smooth((nowS - capT) / .5);
+      var caps = { 1: 'Surgery creates dead space', 2: 'TissueTape is placed', 3: 'Tissue planes bond. No drain.' };
+      var cy = fTop - FH - unit * .075, capX = x0 + span * .12;
+      if (caps[capStep] && !reduced) {
+        ctx.save(); ctx.globalAlpha = capA;
+        ctx.font = '600 ' + clamp(W * .012, 11, 14) + 'px "Schibsted Grotesk", system-ui, sans-serif';
+        ctx.textBaseline = 'middle';
+        if (ctx.letterSpacing !== undefined) ctx.letterSpacing = '0.02em';
+        ctx.fillStyle = '#7FC4E8'; ctx.fillText('0' + capStep, capX, cy);
+        ctx.fillStyle = 'rgba(255,255,255,.92)'; ctx.fillText(caps[capStep], capX + clamp(W * .012, 11, 14) * 2.2, cy);
+        ctx.restore();
+      }
+
+      if (P.alpha < 1) {
+        ctx.save(); ctx.globalCompositeOperation = 'destination-in';
+        ctx.fillStyle = 'rgba(0,0,0,' + P.alpha + ')'; ctx.fillRect(0, 0, W, H); ctx.restore();
+      }
     }
 
+    var capStep = 0, capPrev = 0, capT = 0;
     var start = performance.now(), visible = true, raf = 0;
     function frame(now) { raf = 0; draw(window.__tlHeroT != null ? window.__tlHeroT : (now - start) / 1000); if (visible && !reduced) raf = requestAnimationFrame(frame); }
     if (window.IntersectionObserver) new IntersectionObserver(function (es) { visible = es[0].isIntersecting; if (visible && !raf && !reduced) raf = requestAnimationFrame(frame); }).observe(host);
