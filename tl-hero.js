@@ -474,4 +474,9 @@
   }
 
   window.TLHero = { mount: mount };
+
+  // Auto-mount into the homepage hero frame (re-mounts when you navigate back to Home).
+  function scan() { var el = document.querySelector('[data-hero-art]'); if (el && !el.__tlHero) mount(el); }
+  if (document.readyState !== 'loading') scan(); else document.addEventListener('DOMContentLoaded', scan);
+  new MutationObserver(scan).observe(document.documentElement, { childList: true, subtree: true });
 })();

@@ -6,6 +6,7 @@
 <script src="./support.js"></script>
 <script src="./edit.js?v=3" defer></script>
 <script src="./tl-video.js?v=2" defer></script>
+<script src="./tl-hero.js?v=5" defer></script>
 </head>
 <body>
 <x-dc>
@@ -864,6 +865,7 @@ class Component extends DCLogic {
      the template's inline style object on every render and would strand it. */
 
   initSplashArt() {
+    return null; // hero art is now the tissue animation in tl-hero.js
     const cv = document.querySelector('[data-splash-art]');
     if (!cv || !cv.getContext) return null;
     const ctx = cv.getContext('2d');
