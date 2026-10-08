@@ -43,6 +43,10 @@
   a { color: #7FC4E8; text-decoration: none; }
   a:hover { color: #FFFFFF; }
   img { max-width: 100%; }
+  /* Team grid: everyone on one row on wide screens */
+  [data-team] { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  @media (max-width: 960px) { [data-team] { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  @media (max-width: 600px) { [data-team] { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   /* Home video frame */
   @keyframes tlvidglow { from { transform: translate(-3%,-2%) } to { transform: translate(3%,2%) } }
   @keyframes tlvidfloat { from { transform: translateY(0) } to { transform: translateY(-14px) } }
@@ -115,10 +119,6 @@
         <a href="#" onClick="{{ goAbout }}" style="display:flex;align-items:baseline;gap:clamp(14px,1.8vw,28px);color:#0A1A2B;transition:color .4s,transform .55s cubic-bezier(.16,.84,.3,1)" style-hover="color:#1F5A86;transform:translateX(10px)">
           <span data-edit="t10" style="font-size:13px;font-weight:600;line-height:1;color:#8496A4;flex:0 0 auto;width:22px;text-align:left">04</span>
           <span data-edit="t11" style="margin-left:-0.008em;font-size:clamp(30px,4.6vw,62px);font-weight:500;line-height:1.02;letter-spacing:-.045em">About</span>
-        </a>
-        <a href="#" onClick="{{ goInvestors }}" style="display:flex;align-items:baseline;gap:clamp(14px,1.8vw,28px);color:#0A1A2B;transition:color .4s,transform .55s cubic-bezier(.16,.84,.3,1)" style-hover="color:#1F5A86;transform:translateX(10px)">
-          <span data-edit="t12" style="font-size:13px;font-weight:600;line-height:1;color:#8496A4;flex:0 0 auto;width:22px;text-align:left">05</span>
-          <span data-edit="t13" style="margin-left:-0.010em;font-size:clamp(30px,4.6vw,62px);font-weight:500;line-height:1.02;letter-spacing:-.045em">Investors</span>
         </a>
       </div>
 
@@ -451,7 +451,7 @@
   </section>
 
   <section style="padding:clamp(50px,7vw,110px) clamp(18px,4vw,54px) clamp(70px,9vw,140px);background:#E9ECEF">
-    <div style="max-width:1500px;margin:0 auto;display:grid;gap:clamp(20px,2.6vw,44px);grid-template-columns:repeat(auto-fit,minmax(min(100%,270px),1fr))">
+    <div data-team style="max-width:1500px;margin:0 auto;display:grid;gap:clamp(16px,2vw,32px)">
       <div data-reveal data-delay="0" style="display:flex;flex-direction:column;gap:18px;min-width:0">
         <span style="position:relative;display:block;aspect-ratio:4/5;overflow:hidden;background:#D3D8DD center 20%/cover no-repeat url(assets/team/sq/varaday-grihith.png)">
           <img src="assets/team/sq/varaday-grihith.png" alt="Grihith Varaday" style="width:100%;height:100%;object-fit:cover;object-position:center 20%;display:block;transition:transform 1.1s cubic-bezier(.16,.84,.3,1)" style-hover="transform:scale(1.04)">
@@ -459,7 +459,6 @@
         <div style="display:flex;flex-direction:column;gap:9px">
           <span data-edit="t126" style="font-size:clamp(16px,1.35vw,21px);font-weight:600;line-height:1.25;letter-spacing:-.025em;color:#0A1A2B">Grihith Varaday, BA</span>
           <span data-edit="t127" style="font-size:13px;font-weight:600;line-height:1.4;color:#1F5A86">Chief Executive Officer</span>
-          <p data-edit="t128" style="margin:6px 0 0;font-size:14px;font-weight:400;line-height:1.66;color:#3E4F5C;text-wrap:pretty">Leads strategy, financing, and regulatory planning. Background in healthcare strategy consulting and device commercialisation.</p>
         </div>
       </div>
       <div data-reveal data-delay="80" style="display:flex;flex-direction:column;gap:18px;min-width:0">
@@ -469,7 +468,6 @@
         <div style="display:flex;flex-direction:column;gap:9px">
           <span data-edit="t129" style="font-size:clamp(16px,1.35vw,21px);font-weight:600;line-height:1.25;letter-spacing:-.025em;color:#0A1A2B">Justin Sacks, MD, MBA, FACS</span>
           <span data-edit="t130" style="font-size:13px;font-weight:600;line-height:1.4;color:#1F5A86">Chief Medical Officer</span>
-          <p data-edit="t131" style="margin:6px 0 0;font-size:14px;font-weight:400;line-height:1.66;color:#3E4F5C;text-wrap:pretty">Plastic and reconstructive surgeon. Defines the clinical problem, the entry indication, and the surgeon-facing design constraints.</p>
         </div>
       </div>
       <div data-reveal data-delay="160" style="display:flex;flex-direction:column;gap:18px;min-width:0">
@@ -479,7 +477,6 @@
         <div style="display:flex;flex-direction:column;gap:9px">
           <span data-edit="t132" style="font-size:clamp(16px,1.35vw,21px);font-weight:600;line-height:1.25;letter-spacing:-.025em;color:#0A1A2B">Matthew Wood, PhD</span>
           <span data-edit="t133" style="font-size:13px;font-weight:600;line-height:1.4;color:#1F5A86">Chief Scientific Officer</span>
-          <p data-edit="t134" style="margin:6px 0 0;font-size:14px;font-weight:400;line-height:1.66;color:#3E4F5C;text-wrap:pretty">Owns the material science: formulation, adhesion testing, and the pre-clinical programme.</p>
         </div>
       </div>
       <div data-reveal data-delay="240" style="display:flex;flex-direction:column;gap:18px;min-width:0">
@@ -489,7 +486,6 @@
         <div style="display:flex;flex-direction:column;gap:9px">
           <span data-edit="t135" style="font-size:clamp(16px,1.35vw,21px);font-weight:600;line-height:1.25;letter-spacing:-.025em;color:#0A1A2B">Linda Elkins, MBA, MS</span>
           <span data-edit="t136" style="font-size:13px;font-weight:600;line-height:1.4;color:#1F5A86">Chief Operating Officer</span>
-          <p data-edit="t137" style="margin:6px 0 0;font-size:14px;font-weight:400;line-height:1.66;color:#3E4F5C;text-wrap:pretty">Runs operations, quality groundwork, and the translation from bench protocol to manufacturable product.</p>
         </div>
       </div>
       <div data-reveal data-delay="320" style="display:flex;flex-direction:column;gap:18px;min-width:0">
@@ -499,7 +495,6 @@
         <div style="display:flex;flex-direction:column;gap:9px">
           <span data-edit="t138" style="font-size:clamp(16px,1.35vw,21px);font-weight:600;line-height:1.25;letter-spacing:-.025em;color:#0A1A2B">Xiaowei Li, PhD</span>
           <span data-edit="t139" style="font-size:13px;font-weight:600;line-height:1.4;color:#1F5A86">Head, Scientific Advisory</span>
-          <p data-edit="t140" style="margin:6px 0 0;font-size:14px;font-weight:400;line-height:1.66;color:#3E4F5C;text-wrap:pretty">Biomaterials and regenerative medicine. Advises on formulation strategy and pre-clinical study design.</p>
         </div>
       </div>
     </div>
@@ -583,85 +578,6 @@
 </main>
 </sc-if>
 
-<sc-if value="{{ isInvestors }}">
-<main data-screen-label="Investors">
-  <section style="position:relative;min-height:56svh;display:grid;grid-template-rows:1fr auto;overflow:hidden;background:linear-gradient(180deg,#071624,#0A1A2B);padding:120px clamp(18px,4vw,54px) clamp(40px,6vh,80px)">
-    <div style="position:relative;display:flex;align-items:center;justify-content:center;min-height:clamp(100px,16vh,220px)">
-      <svg data-float="26" viewBox="0 0 313 248" fill="none" stroke-width="4.5" stroke-linejoin="round" aria-hidden="true" style="width:clamp(160px,19vw,270px);height:auto;opacity:.85;overflow:visible;will-change:transform">
-        <path d="M295 28L302 28L303 33L276 62L249 81L213 95L186 97L140 89L101 89L34 101L23 101L25 93L36 80L54 64L78 48L114 34L135 32L183 40L215 41L294 29Z" stroke="#5E8FB8"></path>
-        <path d="M297 89L302 90L299 99L272 126L245 144L211 157L186 159L148 152L115 150L89 152L38 162L22 163L21 160L29 148L45 132L71 113L90 103L115 95L141 94L187 102L221 102L296 90Z" stroke="#7FC4E8"></path>
-        <path d="M291 150L302 150L302 154L292 168L275 184L244 205L213 217L183 219L138 211L102 211L34 223L22 223L21 220L29 208L44 193L71 173L88 164L116 155L139 154L184 162L224 162L290 151Z" stroke="#2A7FDB"></path>
-      </svg>
-    </div>
-    <div style="position:relative;max-width:1500px;margin:0 auto;display:flex;flex-direction:column;gap:22px">
-      <span data-edit="t164" style="font-size:13px;font-weight:600;line-height:1;color:#7FC4E8">Investors</span>
-      <h1 style="margin:0;font-size:clamp(36px,6.4vw,104px);font-weight:500;line-height:.96;letter-spacing:-.052em;color:#FFFFFF;max-width:1080px;text-wrap:balance"><span data-edit="t165" data-word>A</span> <span data-edit="t166" data-word>routine</span> <span data-edit="t167" data-word>procedure</span> <span data-edit="t168" data-word style="color:#7FC4E8">with a standing tax.</span></h1>
-      <p data-edit="t169" data-word style="margin:0;font-size:clamp(15px,1.25vw,19px);font-weight:400;line-height:1.62;color:#C3D2DE;max-width:620px;text-wrap:pretty">Abdominoplasty is among the most common aesthetic procedures performed each year. Nearly all of it carries drains, follow-up, and a seroma risk everyone plans around.</p>
-    </div>
-  </section>
-
-  <section style="padding:clamp(70px,9vw,140px) clamp(18px,4vw,54px);background:#E9ECEF">
-    <div style="max-width:1500px;margin:0 auto;display:flex;flex-direction:column;gap:clamp(40px,5vw,84px)">
-      <div data-reveal style="display:grid;gap:clamp(26px,4vw,70px);grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))">
-        <span data-edit="t170" style="font-size:13px;font-weight:600;line-height:1;color:#1F5A86">Why now</span>
-        <div style="grid-column:span 2;min-width:0;display:flex;flex-direction:column;gap:22px">
-          <p data-edit="t171" style="margin:0;font-size:clamp(16px,1.5vw,24px);font-weight:400;line-height:1.5;color:#1B2F3E;text-wrap:pretty">Surgical adhesives have improved enough to hold living tissue, and resorbable chemistry has matured enough to disappear on schedule. The two curves crossed recently — which is why a fixation layer is buildable now and was not a decade ago.</p>
-          <p data-edit="t172" style="margin:0;font-size:clamp(14px,1.05vw,17px);font-weight:400;line-height:1.68;color:#3E4F5C;max-width:760px;text-wrap:pretty">We are pursuing a single, well-defined entry indication with a clear predicate landscape, then expanding into the broader set of procedures that leave a plane behind — mastectomy, latissimus harvest, hernia repair.</p>
-        </div>
-      </div>
-
-      <div data-reveal style="display:grid;gap:1px;background:rgba(10,26,43,.14);grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr))">
-        <div style="background:#E9ECEF;padding:clamp(24px,3vw,42px);display:flex;flex-direction:column;gap:12px;min-height:200px">
-          <span data-edit="t173" style="font-size:13px;font-weight:600;line-height:1;color:#4E6274">Entry indication</span>
-          <span data-edit="t174" style="font-size:clamp(20px,2vw,32px);font-weight:500;line-height:1.16;letter-spacing:-.035em;color:#0A1A2B">Abdominoplasty</span>
-          <p data-edit="t175" style="margin:auto 0 0;font-size:13px;font-weight:400;line-height:1.62;color:#3E4F5C">High volume, elective, and a procedure where the drain is the patient's main complaint.</p>
-        </div>
-        <div style="background:#E9ECEF;padding:clamp(24px,3vw,42px);display:flex;flex-direction:column;gap:12px;min-height:200px">
-          <span data-edit="t176" style="font-size:13px;font-weight:600;line-height:1;color:#4E6274">Stage</span>
-          <span data-edit="t177" style="font-size:clamp(20px,2vw,32px);font-weight:500;line-height:1.16;letter-spacing:-.035em;color:#0A1A2B">Pre-clinical</span>
-          <p data-edit="t178" style="margin:auto 0 0;font-size:13px;font-weight:400;line-height:1.62;color:#3E4F5C">Bench characterisation complete; large-animal work under way.</p>
-        </div>
-        <div style="background:#E9ECEF;padding:clamp(24px,3vw,42px);display:flex;flex-direction:column;gap:12px;min-height:200px">
-          <span data-edit="t179" style="font-size:13px;font-weight:600;line-height:1;color:#4E6274">Expansion</span>
-          <span data-edit="t180" style="font-size:clamp(20px,2vw,32px);font-weight:500;line-height:1.16;letter-spacing:-.035em;color:#0A1A2B">Any large flap</span>
-          <p data-edit="t181" style="margin:auto 0 0;font-size:13px;font-weight:400;line-height:1.62;color:#3E4F5C">Breast reconstruction, donor sites, and hernia repair share the same failure mode.</p>
-        </div>
-        <div style="background:#E9ECEF;padding:clamp(24px,3vw,42px);display:flex;flex-direction:column;gap:12px;min-height:200px">
-          <span data-edit="t182" style="font-size:13px;font-weight:600;line-height:1;color:#4E6274">Based</span>
-          <span data-edit="t183" style="font-size:clamp(20px,2vw,32px);font-weight:500;line-height:1.16;letter-spacing:-.035em;color:#0A1A2B">St. Louis, MO</span>
-          <p data-edit="t184" style="margin:auto 0 0;font-size:13px;font-weight:400;line-height:1.62;color:#3E4F5C">Cortex Innovation District, alongside BioSTL and WashU Medicine.</p>
-        </div>
-      </div>
-
-      <div data-reveal style="display:grid;gap:clamp(26px,4vw,70px);grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));padding-top:clamp(20px,3vw,44px);border-top:1px solid rgba(10,26,43,.14)">
-        <h2 data-edit="t185" style="margin:0;grid-column:span 2;min-width:0;font-size:clamp(28px,4.4vw,72px);font-weight:500;line-height:1.02;letter-spacing:-.05em;color:#0A1A2B;text-wrap:balance">Get in touch with our team.</h2>
-        <div style="display:flex;flex-direction:column;gap:clamp(24px,3vw,40px)">
-          <div style="display:flex;flex-direction:column;gap:8px">
-            <span data-edit="t186" style="font-size:13px;font-weight:600;line-height:1;color:#1F5A86">Inquiries</span>
-            <a data-edit="t187" href="mailto:connect@tissuelock.com" style="font-size:clamp(16px,1.4vw,21px);font-weight:500;line-height:1.3;letter-spacing:-.02em;color:#0A1A2B;align-self:flex-start;border-bottom:1px solid rgba(10,26,43,.3);padding-bottom:4px;transition:color .35s,border-color .35s" style-hover="color:#1F5A86;border-color:#1F5A86">connect@tissuelock.com</a>
-          </div>
-          <div style="display:flex;flex-direction:column;gap:8px">
-            <span data-edit="t188" style="font-size:13px;font-weight:600;line-height:1;color:#1F5A86">St. Louis</span>
-            <span data-edit="t189" style="font-size:15px;font-weight:400;line-height:1.6;color:#3E4F5C">4340 Duncan Avenue, Suite 207<br>St. Louis, Missouri 63110</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section style="padding:clamp(70px,10vw,160px) clamp(18px,4vw,54px);background:#0A1A2B">
-    <div data-reveal style="max-width:1500px;margin:0 auto;display:grid;gap:clamp(26px,4vw,70px);grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));align-items:flex-end">
-      <h2 data-edit="t190" style="margin:0;grid-column:span 2;min-width:0;font-size:clamp(28px,4.6vw,78px);font-weight:500;line-height:1.01;letter-spacing:-.05em;color:#FFFFFF;text-wrap:balance">The full data package is available under NDA.</h2>
-      <div style="display:flex;flex-direction:column;gap:20px">
-        <p data-edit="t191" style="margin:0;font-size:clamp(14px,1.05vw,17px);font-weight:400;line-height:1.66;color:#A8BDCE;text-wrap:pretty">Deck, bench data, regulatory strategy, and the pre-clinical protocol. Introduce yourself and we will send the room.</p>
-        <a data-edit="t192" href="mailto:connect@tissuelock.com" style="display:inline-flex;align-self:flex-start;font-size:15px;font-weight:500;letter-spacing:-.01em;color:#0A1A2B;background:#E9ECEF;padding:15px 22px;transition:background .35s" style-hover="background:#FFFFFF">connect@tissuelock.com</a>
-      </div>
-    </div>
-    <p data-edit="t193" data-reveal style="max-width:1500px;margin:clamp(30px,4vw,56px) auto 0;font-size:clamp(13px,1.1vw,16px);font-weight:400;line-height:1.6;color:#8EA6BA">Nothing on this page is an offer to sell securities. Tissuelock is an investigational device and has not been cleared or approved for any use.</p>
-  </section>
-</main>
-</sc-if>
-
 <footer style="background:#050F19;color:#9FB4C6;padding:clamp(54px,7vw,104px) clamp(18px,4vw,54px) 34px">
   <div style="max-width:1500px;margin:0 auto">
     <div style="display:grid;gap:clamp(30px,4vw,64px);grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));padding-bottom:clamp(40px,5vw,72px)">
@@ -681,7 +597,6 @@
       <div style="display:flex;flex-direction:column;gap:13px">
         <span data-edit="t78" style="font-size:13px;font-weight:600;line-height:1;color:#7FC4E8">Connect</span>
         <a data-edit="t79" href="#" onClick="{{ goTeam }}" style="font-size:14px;font-weight:400;line-height:1;color:#9FB4C6;transition:color .35s" style-hover="color:#FFFFFF">Team</a>
-        <a data-edit="t80" href="#" onClick="{{ goInvestors }}" style="font-size:14px;font-weight:400;line-height:1;color:#9FB4C6;transition:color .35s" style-hover="color:#FFFFFF">Investors</a>
         <a data-edit="t81" href="mailto:connect@tissuelock.com" style="font-size:14px;font-weight:400;line-height:1;color:#9FB4C6;transition:color .35s" style-hover="color:#FFFFFF">connect@tissuelock.com</a>
         <span data-edit="t82" style="font-size:14px;font-weight:400;line-height:1.62;color:#6E90AC;padding-top:5px">4340 Duncan Avenue<br>Suite 207<br>St. Louis, MO 63110</span>
       </div>
