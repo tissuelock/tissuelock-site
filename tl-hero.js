@@ -447,7 +447,7 @@
       var nowS = performance.now() / 1000;
       if (P.step !== capStep) { capPrev = capStep; capStep = P.step; capT = nowS; }
       var capA = smooth((nowS - capT) / .5);
-      var caps = { 1: 'Surgery creates dead space', 2: 'Tissuelock is placed', 3: 'Tissue planes bond. No drains or PTS.' };
+      var caps = { 1: 'Surgery creates dead space', 2: 'Tissuelock is placed', 3: 'Tissue planes come together. No drains or PTS.' };
       var cy = Math.max(14, fTop - FH - G.lift - unit * .05), capX = x0 + span * .12;
       if (caps[capStep] && !reduced) {
         ctx.save(); ctx.globalAlpha = capA;
