@@ -22,3 +22,22 @@
   if (document.readyState !== 'loading') scan(); else document.addEventListener('DOMContentLoaded', scan);
   new MutationObserver(scan).observe(document.documentElement, { childList: true, subtree: true });
 })();
+
+/* Technology page SEM photo: play the Tissuelock reveal when it scrolls into view (hover still works too). */
+(function () {
+  'use strict';
+  if (!('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function (es) {
+    es.forEach(function (e) {
+      if (e.intersectionRatio >= 0.55) e.target.setAttribute('data-sem-on', '');
+      else if (e.intersectionRatio < 0.15) e.target.removeAttribute('data-sem-on');   // reset so it replays next time
+    });
+  }, { threshold: [0, 0.15, 0.55] });
+  function scan() {
+    document.querySelectorAll('[data-sem]:not([data-sem-watched])').forEach(function (el) {
+      el.setAttribute('data-sem-watched', ''); io.observe(el);
+    });
+  }
+  if (document.readyState !== 'loading') scan(); else document.addEventListener('DOMContentLoaded', scan);
+  new MutationObserver(scan).observe(document.documentElement, { childList: true, subtree: true });
+})();
