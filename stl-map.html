@@ -6,10 +6,12 @@
 <title>Cortex Innovation District — St. Louis</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha384-sHL9NAb7lN7rfvG5lfHpm643Xkcjzp4jFvuavGOndn6pjVqS6ny56CAt3nsEVT4H" crossorigin="anonymous">
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha384-cxOPjt7s7Iz04uaHJceBmS+qpjv2JkIHNVcuOrM+YHwZOmJGBXI00mdUXEq65HTH" crossorigin="anonymous"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;600&display=swap" rel="stylesheet">
 <style>
   html, body { margin:0; height:100%; background:#0A1A2B; }
   #map { position:absolute; inset:0; background:#0A1A2B; }
-  .leaflet-container { background:#0A1A2B; font-family: ui-sans-serif, system-ui, sans-serif; outline:none; }
+  .leaflet-container { background:#0A1A2B; font-family: 'Schibsted Grotesk', ui-sans-serif, system-ui, -apple-system, sans-serif; outline:none; }
   .leaflet-control-attribution { background:rgba(10,26,43,.72); color:#9FB4C6; font-size:9px; letter-spacing:.02em; }
   .leaflet-control-attribution a { color:#7FC4E8; }
   .tl-pin { position:relative; width:18px; height:18px; }
@@ -19,8 +21,9 @@
   @keyframes tlping { 0% { transform:scale(.5); opacity:.95 } 100% { transform:scale(3.4); opacity:0 } }
   /* The divIcon parent is 0px wide, so a block label shrink-wraps to nothing
      and only its padding gets the plate — size it to its own text instead. */
-  .tl-label { display:inline-block; width:max-content; white-space:nowrap; font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:#E9ECEF; font-weight:600;
-    background:rgba(10,26,43,.88); padding:5px 9px; border:1px solid rgba(233,236,239,.18); transform:translate(20px,-9px); }
+  .tl-label { font-family:'Schibsted Grotesk', ui-sans-serif, system-ui, -apple-system, sans-serif; position:absolute; left:29px; top:0; display:inline-block; width:max-content; white-space:nowrap; font-size:11px; line-height:1; letter-spacing:.1em; text-transform:uppercase; color:#E9ECEF; font-weight:600;
+    background:rgba(10,26,43,.88); padding:5px 9px; border:1px solid rgba(233,236,239,.18); -webkit-font-smoothing:antialiased; }
+  @media (max-width:600px) { .tl-label { font-size:12px; padding:6px 10px; } }
 </style>
 </head>
 <body>
@@ -41,61 +44,77 @@
   // a transparent background, so there is no landmass or water to hide. Each
   // tile is recoloured per pixel to the palette blue, keeping the source alpha
   // as the line mask — nothing else in the tile is painted.
+  var DPR = Math.min(window.devicePixelRatio || 1, 3) > 1.2 ? 2 : 1;
+  function recolor(ctx, w, h) {
+    var d;
+    try { d = ctx.getImageData(0, 0, w, h); } catch (e) { return; }
+    var p = d.data;
+    for (var i = 0; i < p.length; i += 4) {
+      var a = p[i + 3];
+      if (!a) continue;
+      // Each road in the source is a light fill inside a dark casing; keep
+      // only the fill so the map is single-weight lines with no outlines.
+      var lum = (p[i] * 0.299 + p[i + 1] * 0.587 + p[i + 2] * 0.114) / 255;
+      var k = (lum - 0.42) / 0.16;
+      k = k < 0 ? 0 : k > 1 ? 1 : k;
+      k = k * k * (3 - 2 * k);
+      p[i] = 127; p[i + 1] = 196; p[i + 2] = 232;
+      p[i + 3] = Math.round(a * 0.78 * k);
+    }
+    ctx.putImageData(d, 0, 0);
+  }
+  var SRC = 'https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Transportation/MapServer/tile/';
+  // Roads only: the transportation reference layer is street linework drawn on
+  // a transparent background. On high-DPI screens each tile is stitched from the
+  // four tiles one zoom level deeper so the lines stay crisp instead of upscaled.
   var Roads = L.GridLayer.extend({
     createTile: function (coords, done) {
       var size = this.getTileSize();
       var cv = document.createElement('canvas');
-      cv.width = size.x; cv.height = size.y;
+      var W = size.x * DPR, H = size.y * DPR;
+      cv.width = W; cv.height = H;
       var ctx = cv.getContext('2d');
-      var img = new Image();
-      img.crossOrigin = 'anonymous';
-      img.onload = function () {
-        // Crop the source's outermost pixel row/column rather than overscanning:
-        // the tiles carry a light edge artifact of their own, so stretching them
-        // preserves the seam — discarding it removes the line entirely.
-        var sw = img.naturalWidth || 256, sh = img.naturalHeight || 256;
-        ctx.drawImage(img, 1, 1, sw - 2, sh - 2, 0, 0, size.x, size.y);
-        var d;
-        try { d = ctx.getImageData(0, 0, size.x, size.y); } catch (e) { done(null, cv); return; }
-        var p = d.data;
-        for (var i = 0; i < p.length; i += 4) {
-          var a = p[i + 3];
-          if (!a) continue;
-          // Each road in the source is a light fill inside a dark casing; keep
-          // only the fill so the map is single-weight lines with no outlines.
-          var lum = (p[i] * 0.299 + p[i + 1] * 0.587 + p[i + 2] * 0.114) / 255;
-          var k = (lum - 0.42) / 0.16;
-          k = k < 0 ? 0 : k > 1 ? 1 : k;
-          k = k * k * (3 - 2 * k);
-          p[i]     = 127;
-          p[i + 1] = 196;
-          p[i + 2] = 232;
-          p[i + 3] = Math.round(a * 0.78 * k);
-        }
-        ctx.putImageData(d, 0, 0);
-        done(null, cv);
-      };
-      img.onerror = function () { done(null, cv); };
-      img.src = 'https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Transportation/MapServer/tile/'
-        + coords.z + '/' + coords.y + '/' + coords.x;
+      var n = DPR, pending = n * n, cw = W / n, ch = H / n;
+      function finish() { if (--pending === 0) { recolor(ctx, W, H); done(null, cv); } }
+      for (var dy = 0; dy < n; dy++) for (var dx = 0; dx < n; dx++) (function (dx, dy) {
+        var img = new Image();
+        img.crossOrigin = 'anonymous';
+        img.onload = function () {
+          // Crop the source's outermost pixel row/column: the tiles carry a
+          // light edge artifact of their own that would otherwise show as seams.
+          var sw = img.naturalWidth || 256, sh = img.naturalHeight || 256;
+          ctx.drawImage(img, 1, 1, sw - 2, sh - 2, dx * cw, dy * ch, cw, ch);
+          finish();
+        };
+        img.onerror = finish;
+        var z = coords.z + (n > 1 ? 1 : 0);
+        img.src = SRC + z + '/' + (coords.y * n + dy) + '/' + (coords.x * n + dx);
+      })(dx, dy);
       return cv;
     }
   });
   new Roads({ maxZoom: 16 }).addTo(map);
 
-  L.marker(HQ, { icon: L.divIcon({
-    className: '', iconSize: [18,18], iconAnchor: [9,9],
-    html: '<div class="tl-pin"><b></b><b></b><i></i></div>'
-  }), keyboard:false, interactive:false }).addTo(map);
-
-  L.marker(HQ, { icon: L.divIcon({
-    className: '', iconSize: [0,0], iconAnchor: [0,0],
-    html: '<div class="tl-label">Cortex Innovation District</div>'
-  }), keyboard:false, interactive:false }).addTo(map);
+  // Pin and label sit in a plain overlay at whole-pixel positions, outside
+  // Leaflet's transformed panes, so the text never lands on a half pixel and blurs.
+  var ov = document.createElement('div');
+  ov.style.cssText = 'position:absolute;left:0;top:0;z-index:500;pointer-events:none';
+  ov.innerHTML = '<div class="tl-pin"><b></b><b></b><i></i></div><div class="tl-label">Cortex Innovation District</div>';
+  document.body.appendChild(ov);
+  var lab = ov.querySelector('.tl-label');
+  function place() {
+    var pt = map.latLngToContainerPoint(HQ), w = lab.offsetWidth, W = map.getSize().x;
+    ov.style.transform = 'translate(' + Math.round(pt.x - 9) + 'px,' + Math.round(pt.y - 9) + 'px)';
+    // Beside the pin when it fits, otherwise centred underneath it (narrow phones).
+    if (pt.x + 20 + w <= W - 10) { lab.style.left = '29px'; lab.style.top = '0px'; }
+    else { lab.style.left = Math.round(9 - w / 2) + 'px'; lab.style.top = '34px'; }
+  }
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(place);
+  map.on('resize zoomend moveend viewreset', place); place();
 
   // Static by design: the only motion is the marker's rings.
-  window.addEventListener('load', function () { map.invalidateSize(); });
-  window.addEventListener('resize', function () { map.invalidateSize(); });
+  window.addEventListener('load', function () { map.invalidateSize(); place(); });
+  window.addEventListener('resize', function () { map.invalidateSize(); place(); });
 </script>
 </body>
 </html>
