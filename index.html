@@ -60,6 +60,9 @@
   a { color: #7FC4E8; text-decoration: none; }
   a:hover { color: #FFFFFF; }
   img { max-width: 100%; }
+canvas[data-gl="waves"]{-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 22%);mask-image:linear-gradient(90deg,transparent 0,#000 22%)}
+@media (max-width:760px){canvas[data-gl="waves"]{width:150vw !important;right:-58vw !important;top:-6% !important;height:min(62vh,560px) !important}}
+
 [data-menu-links]{display:grid;grid-template-columns:1fr 1fr;column-gap:clamp(18px,2.4vw,36px);align-content:center}
 [data-menu-link]{position:relative;display:block;padding:clamp(12px,1.4vw,18px) 0 clamp(30px,5vh,58px);color:#0A1A2B;font-size:clamp(26px,3.4vw,50px);font-weight:400;line-height:1.05;letter-spacing:-.035em;transition:color .35s}
 [data-menu-link]::before,[data-menu-link]::after{content:"";position:absolute;left:0;right:0;top:0;height:1px;transform:scaleX(0);transform-origin:left center}
@@ -604,7 +607,7 @@
       <div style="display:flex;flex-direction:column;gap:13px">
         <span data-edit="t78" style="font-size:13px;font-weight:600;line-height:1;color:#7FC4E8">Connect</span>
         <a data-edit="t79" href="#" onClick="{{ goTeam }}" style="font-size:14px;font-weight:400;line-height:1;color:#9FB4C6;transition:color .35s" style-hover="color:#FFFFFF">Team</a>
-        <a data-edit="t81" href="mailto:connect@tissuelock.com" style="font-size:14px;font-weight:400;line-height:1;color:#9FB4C6;transition:color .35s" style-hover="color:#FFFFFF">connect@tissuelock.com</a>
+        <a data-edit="t81" href="mailto:connect@tissuelock.com" style="overflow-wrap:anywhere;font-size:14px;font-weight:400;line-height:1;color:#9FB4C6;transition:color .35s" style-hover="color:#FFFFFF">connect@tissuelock.com</a>
         <span data-edit="t82" style="font-size:14px;font-weight:400;line-height:1.62;color:#6E90AC;padding-top:5px">4340 Duncan Avenue<br>Suite 207<br>St. Louis, MO 63110</span>
       </div>
     </div>
