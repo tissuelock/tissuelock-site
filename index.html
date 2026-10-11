@@ -60,6 +60,18 @@
   a { color: #7FC4E8; text-decoration: none; }
   a:hover { color: #FFFFFF; }
   img { max-width: 100%; }
+[data-menu-links]{display:grid;grid-template-columns:1fr 1fr;column-gap:clamp(18px,2.4vw,36px);align-content:center}
+[data-menu-link]{position:relative;display:block;padding:clamp(12px,1.4vw,18px) 0 clamp(30px,5vh,58px);color:#0A1A2B;font-size:clamp(26px,3.4vw,50px);font-weight:400;line-height:1.05;letter-spacing:-.035em;transition:color .35s}
+[data-menu-link]::before,[data-menu-link]::after{content:"";position:absolute;left:0;right:0;top:0;height:1px;transform:scaleX(0);transform-origin:left center}
+[data-menu-link]::before{background:rgba(10,26,43,.3);transition:transform 1s cubic-bezier(.16,.84,.3,1) var(--d,0ms)}
+[data-menu-link]::after{background:#1F5A86;height:2px;top:-.5px;transition:transform .55s cubic-bezier(.16,.84,.3,1)}
+[data-menu-panel][data-open] [data-menu-link]::before{transform:scaleX(1)}
+[data-menu-link]:hover{color:#1F5A86}
+[data-menu-link]:hover::after{transform:scaleX(1)}
+[data-menu-link] span{display:inline-block;opacity:0;transform:translateY(14px);transition:opacity .6s ease calc(var(--d,0ms) + 120ms),transform .8s cubic-bezier(.16,.84,.3,1) calc(var(--d,0ms) + 120ms)}
+[data-menu-panel][data-open] [data-menu-link] span{opacity:1;transform:none}
+[data-menu-link]:nth-child(1){--d:120ms}[data-menu-link]:nth-child(2){--d:190ms}[data-menu-link]:nth-child(3){--d:260ms}[data-menu-link]:nth-child(4){--d:330ms}
+
 [data-sem] [data-sem-ov]{position:absolute;inset:0;pointer-events:none;display:flex;align-items:center;justify-content:center;background:radial-gradient(ellipse at center,rgba(7,22,36,.0) 0%,rgba(7,22,36,.0) 100%);transition:background .7s cubic-bezier(.16,.84,.3,1)}
 [data-sem] [data-sem-c]{position:absolute;inset:clamp(14px,2vw,26px);opacity:0;transition:opacity .5s,inset .7s cubic-bezier(.16,.84,.3,1);background:linear-gradient(#fff,#fff) 0 0/22px 1.5px,linear-gradient(#fff,#fff) 0 0/1.5px 22px,linear-gradient(#fff,#fff) 100% 0/22px 1.5px,linear-gradient(#fff,#fff) 100% 0/1.5px 22px,linear-gradient(#fff,#fff) 0 100%/22px 1.5px,linear-gradient(#fff,#fff) 0 100%/1.5px 22px,linear-gradient(#fff,#fff) 100% 100%/22px 1.5px,linear-gradient(#fff,#fff) 100% 100%/1.5px 22px;background-repeat:no-repeat}
 [data-sem] [data-sem-scan]{position:absolute;left:0;right:0;top:-12%;height:12%;opacity:0;background:linear-gradient(180deg,rgba(127,196,232,0),rgba(127,196,232,.35) 85%,rgba(233,244,251,.95) 100%);box-shadow:0 1px 14px rgba(127,196,232,.7)}
@@ -144,27 +156,29 @@
       <img src="assets/logo-mark-t-clean.png" alt="" style="height:25px;width:auto;display:block">
       <span data-edit="t2" style="font-size:18px;font-weight:800;line-height:1;letter-spacing:-.035em">Tissuelock</span>
     </span>
-    <button data-edit="t3" onClick="{{ toggleMenu }}" aria-label="Close menu" style="font-size:15px;font-weight:500;letter-spacing:-.01em;color:#0A1A2B;background:transparent;border:0;border-bottom:1px solid rgba(10,26,43,.3);padding:0 0 4px;cursor:pointer;transition:border-color .35s,color .35s" style-hover="color:#1F5A86;border-color:#1F5A86">Close</button>
+    <button onClick="{{ toggleMenu }}" aria-label="Close menu" style="display:flex;align-items:center;justify-content:center;width:48px;height:40px;flex:0 0 auto;padding:0;border:1px solid rgba(10,26,43,.22);background:transparent;cursor:pointer;transition:border-color .4s,background .4s" style-hover="border-color:#1F5A86;background:rgba(31,90,134,.06)">
+    <svg data-burger-static viewBox="0 0 313 248" fill="none" stroke="#0A1A2B" stroke-width="11" stroke-linejoin="round" aria-hidden="true" style="width:27px;height:auto;display:block;overflow:visible">
+      <path data-burger-line="0" d="M295 28L302 28L303 33L276 62L249 81L213 95L186 97L140 89L101 89L34 101L23 101L25 93L36 80L54 64L78 48L114 34L135 32L183 40L215 41L294 29Z" style="transition:transform .55s cubic-bezier(.34,1.2,.5,1),opacity .4s ease"></path>
+      <path data-burger-line="1" d="M297 89L302 90L299 99L272 126L245 144L211 157L186 159L148 152L115 150L89 152L38 162L22 163L21 160L29 148L45 132L71 113L90 103L115 95L141 94L187 102L221 102L296 90Z" style="transition:transform .55s cubic-bezier(.34,1.2,.5,1),opacity .4s ease"></path>
+      <path data-burger-line="2" d="M291 150L302 150L302 154L292 168L275 184L244 205L213 217L183 219L138 211L102 211L34 223L22 223L21 220L29 208L44 193L71 173L88 164L116 155L139 154L184 162L224 162L290 151Z" style="transition:transform .55s cubic-bezier(.34,1.2,.5,1),opacity .4s ease"></path>
+    </svg>
+    </button>
   </div>
 
   <div style="flex:1;display:flex;align-items:center;padding:clamp(20px,5vh,70px) 0">
     <div style="display:grid;gap:clamp(16px,3.4vw,52px);grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));width:100%;max-width:1400px;margin:0 auto">
-      <div style="display:flex;flex-direction:column;gap:clamp(12px,2.4vh,30px)">
-        <a href="#" onClick="{{ goHome }}" style="display:flex;align-items:baseline;gap:clamp(14px,1.8vw,28px);color:#0A1A2B;transition:color .4s,transform .55s cubic-bezier(.16,.84,.3,1)" style-hover="color:#1F5A86;transform:translateX(10px)">
-          <span data-edit="t4" style="font-size:13px;font-weight:600;line-height:1;color:#8496A4;flex:0 0 auto;width:22px;text-align:left">01</span>
-          <span data-edit="t5" style="margin-left:-0.047em;font-size:clamp(30px,4.6vw,62px);font-weight:500;line-height:1.02;letter-spacing:-.045em">Home</span>
+      <div data-menu-links>
+        <a data-menu-link href="#" onClick="{{ goHome }}">
+          <span data-edit="t5">Home</span>
         </a>
-        <a href="#" onClick="{{ goTech }}" style="display:flex;align-items:baseline;gap:clamp(14px,1.8vw,28px);color:#0A1A2B;transition:color .4s,transform .55s cubic-bezier(.16,.84,.3,1)" style-hover="color:#1F5A86;transform:translateX(10px)">
-          <span data-edit="t6" style="font-size:13px;font-weight:600;line-height:1;color:#8496A4;flex:0 0 auto;width:22px;text-align:left">02</span>
-          <span data-edit="t7" style="margin-left:-0.024em;font-size:clamp(30px,4.6vw,62px);font-weight:500;line-height:1.02;letter-spacing:-.045em">Technology</span>
+        <a data-menu-link href="#" onClick="{{ goTech }}">
+          <span data-edit="t7">Technology</span>
         </a>
-        <a href="#" onClick="{{ goTeam }}" style="display:flex;align-items:baseline;gap:clamp(14px,1.8vw,28px);color:#0A1A2B;transition:color .4s,transform .55s cubic-bezier(.16,.84,.3,1)" style-hover="color:#1F5A86;transform:translateX(10px)">
-          <span data-edit="t8" style="font-size:13px;font-weight:600;line-height:1;color:#8496A4;flex:0 0 auto;width:22px;text-align:left">03</span>
-          <span data-edit="t9" style="margin-left:-0.024em;font-size:clamp(30px,4.6vw,62px);font-weight:500;line-height:1.02;letter-spacing:-.045em">Team</span>
+        <a data-menu-link href="#" onClick="{{ goTeam }}">
+          <span data-edit="t9">Team</span>
         </a>
-        <a href="#" onClick="{{ goAbout }}" style="display:flex;align-items:baseline;gap:clamp(14px,1.8vw,28px);color:#0A1A2B;transition:color .4s,transform .55s cubic-bezier(.16,.84,.3,1)" style-hover="color:#1F5A86;transform:translateX(10px)">
-          <span data-edit="t10" style="font-size:13px;font-weight:600;line-height:1;color:#8496A4;flex:0 0 auto;width:22px;text-align:left">04</span>
-          <span data-edit="t11" style="margin-left:-0.008em;font-size:clamp(30px,4.6vw,62px);font-weight:500;line-height:1.02;letter-spacing:-.045em">About</span>
+        <a data-menu-link href="#" onClick="{{ goAbout }}">
+          <span data-edit="t11">About</span>
         </a>
       </div>
 
@@ -1109,6 +1123,7 @@ class Component extends DCLogic {
     const panel = document.querySelector('[data-menu-panel]');
     if (!panel) return;
     const target = this.state.menu ? 'translateY(0)' : 'translateY(-101%)';
+    panel.toggleAttribute('data-open', !!this.state.menu);
     if (document.visibilityState === 'hidden') {
       panel.style.transition = 'none';
       panel.style.transform = target;
@@ -1120,8 +1135,10 @@ class Component extends DCLogic {
   }
 
   applyBurger() {
-    const svg = document.querySelector('[data-burger]');
-    if (!svg) return;
+    document.querySelectorAll('[data-burger]').forEach((svg) => this.applyBurgerTo(svg));
+  }
+
+  applyBurgerTo(svg) {
     const open = this.state.menu;
     const spring = 'cubic-bezier(.2,1.5,.35,1)';
     svg.style.transition = 'transform .75s ' + spring;
@@ -1147,11 +1164,11 @@ class Component extends DCLogic {
 
   // quick tactile press on the icon itself
   pressBurger() {
-    const svg = document.querySelector('[data-burger]');
-    if (!svg) return;
     const open = this.state.menu;
-    svg.style.transition = 'transform .12s ease';
-    svg.style.transform = (open ? 'rotate(-90deg) ' : '') + 'scale(.74)';
+    document.querySelectorAll('[data-burger]').forEach((svg) => {
+      svg.style.transition = 'transform .12s ease';
+      svg.style.transform = (open ? 'rotate(-90deg) ' : '') + 'scale(.74)';
+    });
     setTimeout(() => this.applyBurger(), 120);
   }
 
